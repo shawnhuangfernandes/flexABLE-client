@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './Login';
+import SignIn from './SignIn';
 import { api } from '../services/api';
 import {Route} from 'react-router-dom';
 
@@ -44,7 +44,7 @@ class App extends React.Component {
             <Route
               exact
               path="/login"
-              render={routerProps => <Login {...routerProps} onLogin={this.login} />}
+              render={routerProps => <SignIn {...routerProps} onLogin={this.login} />}
             />
       </div>
     );

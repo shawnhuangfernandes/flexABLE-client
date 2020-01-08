@@ -1,68 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## FlexABLE - A Workout Planner For Regular People
 
-## Available Scripts
+You should work out, but you don't (although everyone says there's exactly 4 gajillion reasons on why it's good for you). Welcome to the club. If you're like me, committing yourself to actually working out has some challenges.
 
-In the project directory, you can run:
+1) The only exercise you know by name is the Pushup (You want to reference an 'exercise dictionary')
+2) You're worried you will become lopsided after you workout (You want to know what exercises to do to develop what muscles)
+3) How much weight did I lift last week? How did it feel? (You want help tracking your progression)
+4) What fun stuff can I do with my muscles? (You want to see fun activities that test your fitness)
 
-### `yarn start`
+FlexABLE is a workout planner that helps you get learn how to exercise, plan your workouts, and find ways to provide meaning to your newly acquired fitness. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Introduction
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+FlexABLE is a full-stack web application for desktop platforms build using ReactJS for the frontend and Rails API as a backend. It is my final project built over the course of 3 weeks during my software engineering bootcamp at Flatiron. 
 
-### `yarn test`
+### Project Requirements
+The following are the requirements provided to me from Flatiron as a basis for the project. I have marked 'x's on requirements I tried tackling.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The listed requirements below are guidelines that should help you to determine what the complexity of your project should be. They are not hard and fast rules, and final project approval is up to your leads and SECs, who will be acting as project managers.
 
-### `yarn build`
+#### Backend
+Your project must use a non-trivial Rails backend. Consult the following list for examples of things to include. You do not need to include all of these things, and the final decision of what must be included will be up to your project managers.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[x] Auth
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[ ] Tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[ ] Multiple has_many_through relationships
 
-### `yarn eject`
+[ ] Seeds from a complex data set
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[x] Custom routes
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[x] Custom controller/model methods
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+[x] Basic database query optimizations
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[ ] Background jobs for slow actions
 
-## Learn More
+[ ] Sockets or email integration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[x] One significant refactor
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[x] Validation
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### Frontend
+Your product must use a React based frontend. Consult the following list for examples of things to include. You do not need to include all of these things, and the final decision of what must be included will be up to your project manager.
 
-### Analyzing the Bundle Size
+[x] Auth
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+[ ] Tests
 
-### Making a Progressive Web App
+[ ] Interacting with a complex API
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+[x] Redux
 
-### Advanced Configuration
+[x] Custom CSS
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+[x] One significant refactor
 
-### Deployment
+## Technologies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+The following technologies were used to build this project:
 
-### `yarn build` fails to minify
+- NodeJS:       javascript runtime
+- Npm:          javascript packages
+- React:        frontend
+- Redux:        managing frontend state
+- Rails:        backend
+- Material-UI:  styling library
+- CSS:          general styling
+- PostgreSQL    database/queries
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Launch
+
+In order to launch this project, do the following:
+- Follow the instructions for the backend (github: https://github.com/shawnhuangfernandes/flexABLE-server)
+- Open this project's root directory in the console
+
+In your console
+> npm install
+> npm start
+
+- Go to the following URL from your browser: http://localhost:3001/
