@@ -3,17 +3,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { api } from "../services/api";
 
-const SignIn = (props) => {
+const SignIn = props => {
   // material UI styles
   const useStyles = makeStyles(theme => ({
     paper: {
@@ -44,6 +40,12 @@ const SignIn = (props) => {
   // create state of password
   const [password, setPassword] = useState("");
 
+  // create state of first name
+  const [firstName, setFirstName] = useState("");
+
+  // create state of last name
+  const [lastName, setLastName] = useState("");
+
   // event handler for when username field changes
   const handleUsernameChange = e => {
     setUsername(e.target.value);
@@ -54,17 +56,34 @@ const SignIn = (props) => {
     setPassword(e.target.value);
   };
 
+  // event handler for when password changes
+  const handleFirstNameChange = e => {
+    setFirstName(e.target.value);
+  };
+
+  // event handler for when password changes
+  const handleLastNameChange = e => {
+    setLastName(e.target.value);
+  };
+
   // event handler for when form is submitted
   const handleSubmit = e => {
     e.preventDefault();
     api.auth
-      .login({ username: username, password: password })
+      .signUp({
+        user: {
+          username,
+          password,
+          first_name: firstName,
+          last_name: lastName
+        }
+      })
       .then(response => {
         if (!response.error) {
           props.onLogin(response);
           props.history.push("/");
         } else {
-          console.log('Got an error here');
+          console.log("Got an error here");
         }
       });
   };
@@ -85,10 +104,10 @@ const SignIn = (props) => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
             onChange={handleUsernameChange}
           />
@@ -104,9 +123,29 @@ const SignIn = (props) => {
             autoComplete="current-password"
             onChange={handlePasswordChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="first_name"
+            label="First Name"
+            name="first_name"
+            autoComplete="first_name"
+            autoFocus
+            onChange={handleFirstNameChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="last_name"
+            label="Last Name"
+            name="last_name"
+            autoComplete="last_name"
+            autoFocus
+            onChange={handleLastNameChange}
           />
           <Button
             type="submit"
@@ -115,24 +154,12 @@ const SignIn = (props) => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
     </Container>
   );
-}
+};
 
-export default SignIn
+export default SignIn;

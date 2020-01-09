@@ -8,7 +8,15 @@ const headers = {
 };
 
 const login = data => {
-    return fetch(`${API_ROOT}/auth`, {
+    return fetch(`${API_ROOT}/login`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(data)
+    }).then(res => res.json());
+  };
+
+  const signUp = data => {
+    return fetch(`${API_ROOT}/users`, {
       method: 'POST',
       headers,
       body: JSON.stringify(data)
@@ -16,8 +24,7 @@ const login = data => {
   };
   
   const getCurrentUser = () => {
-    console.log("getting current user", headers)
-    return fetch(`${API_ROOT}/current_user`, {
+    return fetch(`${API_ROOT}/user_is_authed`, {
       headers
     }).then(res => {
       return res.json()});
@@ -25,6 +32,7 @@ const login = data => {
 
   export const api = {
     auth: {
+      signUp,
       login,
       getCurrentUser
     }

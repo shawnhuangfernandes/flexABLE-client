@@ -1,7 +1,8 @@
 import React from 'react';
 import SignIn from './SignIn';
+import SignUp from './SignUp'
 import { api } from '../services/api';
-import {Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -45,6 +46,11 @@ class App extends React.Component {
               exact
               path="/login"
               render={routerProps => <SignIn {...routerProps} onLogin={this.login} />}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={routerProps => <SignUp {...routerProps} onLogin={this.login} />}
             />
       </div>
     );
