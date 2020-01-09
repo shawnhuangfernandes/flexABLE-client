@@ -8,8 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { api } from "../services/api";
+import {useDispatch} from 'react-redux'
 
 const SignIn = props => {
+  // React hook to use Redux dispatch
+  const dispatch = useDispatch()
+
   // material UI styles
   const useStyles = makeStyles(theme => ({
     paper: {

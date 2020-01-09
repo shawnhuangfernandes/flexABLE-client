@@ -3,21 +3,24 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { api } from "../services/api";
 import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { signIn } from "../redux/index";
+import { signIn } from "../redux/actionList";
+import {useDispatch} from 'react-redux'
 import { BrowserRouter as Router } from "react-router-dom";
 
 const MainContainer = props => {
+  // React hook to use Redux dispatch
+  const dispatch = useDispatch()
+
   // After MainContainer Component Mounts On Page
   useEffect(() => {
     const token = localStorage.getItem("token"); // Get the JWT token from local storage
     if (token) {
       // If a JWT token exists in local storage
       api.auth.getCurrentUser().then(user => {
-        props.signIn(user);
+      dispatch(signIn(user)); 
       });
     }
-  });
+  }, []);
 
   return (
     // Renders the MainContainer component (a react-redux provider wrapped routing component)
@@ -39,20 +42,20 @@ const MainContainer = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     user: state.user
+//   };
+// };
 
-const mapDispatchToProps = (dispatch, user) => {
-  // questionable
-  return {
-    signIn: () => dispatch(signIn(user))
-  };
-};
+// const mapDispatchToProps = (dispatch, user) => {
+//   // questionable
+//   return {
+//     signIn: () => dispatch(signIn(user))
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default MainContainer;
 
 // This method logs the user out
 // logout = () => {

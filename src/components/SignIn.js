@@ -12,10 +12,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { api } from "../services/api";
-import { signIn } from "../redux/index";
-import { connect } from "react-redux";
+import {useDispatch} from 'react-redux'
+import { signIn } from "../redux/actionList";
 
 const SignIn = (props) => {
+  // React hook to use Redux dispatch
+  const dispatch = useDispatch()
+
   // material UI styles
   const useStyles = makeStyles(theme => ({
     paper: {
@@ -64,7 +67,7 @@ const SignIn = (props) => {
       .then(userData => { // after we get back the userData
         if (!userData.error) { // if the returned userData DID NOT have a login error
           localStorage.setItem('token', userData.jwt); // assign the local storage token of the logged in user as the user's JWT encrypted token
-          props.signIn(userData);
+          dispatch(signIn(userData)); 
           props.history.push("/");
         } else {
           console.log('Got an error here');
@@ -138,10 +141,10 @@ const SignIn = (props) => {
   );
 }
 
-const mapDispatchToProps = (dispatch, user) => {
-  return {
-    signIn: () => dispatch(signIn(user))
-  };
-};
+// const mapDispatchToProps = (dispatch, user) => {
+//   return {
+//     signIn: () => dispatch(signIn(user))
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default SignIn
