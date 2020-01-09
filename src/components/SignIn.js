@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { api } from "../services/api";
+import { signIn } from "../redux/index";
+import { connect } from "react-redux";
 
 const SignIn = (props) => {
   // material UI styles
@@ -42,11 +44,11 @@ const SignIn = (props) => {
   const [username, setUsername] = useState("");
 
   // create state of password
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(""); 
 
   // event handler for when username field changes
   const handleUsernameChange = e => {
-    setUsername(e.target.value);
+    setUsername(e.target.value); 
   };
 
   // event handler for when password changes
@@ -56,12 +58,13 @@ const SignIn = (props) => {
 
   // event handler for when form is submitted
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault(); // prevent refresh behavior on form submit
     api.auth
-      .login({ username: username, password: password })
-      .then(response => {
-        if (!response.error) {
-          props.onLogin(response);
+      .login({ username: username, password: password }) // use API AUTH service method to post 'login' to get userData
+      .then(userData => { // after we get back the userData
+        if (!userData.error) { // if the returned userData DID NOT have a login error
+          localStorage.setItem('token', userData.jwt); // assign the local storage token of the logged in user as the user's JWT encrypted token
+          props.signIn(userData);
           props.history.push("/");
         } else {
           console.log('Got an error here');
@@ -135,4 +138,10 @@ const SignIn = (props) => {
   );
 }
 
-export default SignIn
+const mapDispatchToProps = (dispatch, user) => {
+  return {
+    signIn: () => dispatch(signIn(user))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn)
