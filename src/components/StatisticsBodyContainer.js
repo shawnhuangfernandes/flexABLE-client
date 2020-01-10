@@ -1,5 +1,4 @@
 import React from 'react';
-import FooterContainer from './FooterContainer'
 
 const StatisticsBodyContainer = () => {
     return (

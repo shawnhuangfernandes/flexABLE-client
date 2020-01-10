@@ -12,6 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import StatisticsBodyContainer from './StatisticsBodyContainer';
 
 const drawerWidth = 240;
 
@@ -36,22 +37,27 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
 }));
 
+const getDashboardContentComponent = (props) => {
+  switch(props.selection) {
+    case 'statistics':
+      return <StatisticsBodyContainer />
+    case 'planner':
+      // code block
+      break;
+    case 'learning':
+      // code block
+      break;
+    case 'settings':
+      // code block
+      break;
+    default:
+      return <StatisticsBodyContainer />
+  }
+}
+
 export default function DashboardBody(props) {
   const classes = useStyles();
-  const activePage = ""
-
-  console.log(props)
-
-  // switch(props.match.params) {
-  //   case x:
-  //     // code block
-  //     break;
-  //   case y:
-  //     // code block
-  //     break;
-  //   default:
-  //     // code block
-  // }
+  
 
   return (
     <div className={classes.root}>
@@ -91,7 +97,7 @@ export default function DashboardBody(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        
+        {getDashboardContentComponent(props)}
       </main>
     </div>
   );

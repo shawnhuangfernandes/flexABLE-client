@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function DashboardContainer(props) {
   const classes = useStyles();
-  console.log(props)
 
   return (
     <div className={classes.root}>
