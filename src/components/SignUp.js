@@ -8,11 +8,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { api } from "../services/api";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
+import { signIn } from "../redux/actionList";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 
 const SignIn = props => {
   // React hook to use Redux dispatch
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // material UI styles
   const useStyles = makeStyles(theme => ({
@@ -82,10 +85,10 @@ const SignIn = props => {
           last_name: lastName
         }
       })
-      .then(response => {
-        if (!response.error) {
-          props.onLogin(response);
-          props.history.push("/");
+      .then(userData => {
+        if (!userData.error) {
+          dispatch(signIn(userData));
+          props.history.push("/dashboard/statistics");
         } else {
           console.log("Got an error here");
         }
@@ -100,7 +103,7 @@ const SignIn = props => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign Up
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -161,6 +164,13 @@ const SignIn = props => {
             Sign Up
           </Button>
         </form>
+        <Grid container>
+          <Grid item>
+            <Link href="/login" variant="body2">
+              {"Already Have an Account? Sign In."}
+            </Link>
+          </Grid>
+        </Grid>
       </div>
     </Container>
   );

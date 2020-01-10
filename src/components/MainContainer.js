@@ -6,7 +6,8 @@ import { Route } from "react-router-dom";
 import { signIn } from "../redux/actionList";
 import {useDispatch} from 'react-redux'
 import { BrowserRouter as Router } from "react-router-dom";
-
+import LandingContainer from './LandingContainer'
+import DashboardContainer from './DashboardContainer'
 const MainContainer = props => {
   // React hook to use Redux dispatch
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const MainContainer = props => {
     // Renders the MainContainer component (a react-redux provider wrapped routing component)
     <Router>
       <div className="main-container">
-        <Route exact path="/" render={() => <p>Hello</p>} />
+        <Route exact path="/" render={() => <LandingContainer />} />
         <Route
           exact
           path="/login"
@@ -37,23 +38,15 @@ const MainContainer = props => {
           path="/signup"
           render={routerProps => <SignUp {...routerProps} />}
         />
+        <Route
+          exact
+          path="/dashboard/:selection"
+          render={routerProps => <DashboardContainer {...routerProps} />}
+        />
       </div>
     </Router>
   );
 };
-
-// const mapStateToProps = state => {
-//   return {
-//     user: state.user
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch, user) => {
-//   // questionable
-//   return {
-//     signIn: () => dispatch(signIn(user))
-//   };
-// };
 
 export default MainContainer;
 
