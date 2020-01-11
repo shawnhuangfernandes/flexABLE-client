@@ -21,6 +21,7 @@ const MainContainer = props => {
       dispatch(signIn(user)); 
       });
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -50,8 +51,4 @@ const MainContainer = props => {
 
 export default MainContainer;
 
-// This method logs the user out
-// logout = () => {
-//   localStorage.removeItem('token'); // removes the JWT token of the user from local storage
-//   this.setState({ auth: { user: {} } }); // -------------------- MARKED FOR REDUX REPLACEMENT
-// };
+

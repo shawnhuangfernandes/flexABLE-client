@@ -1,4 +1,5 @@
 import { SIGN_IN } from "./authTypes";
+import { LOGOUT } from "./authTypes";
 
 const initialState = {
   user: {}
@@ -10,6 +11,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload
+      };
+      case LOGOUT:
+      return {
+        ...state,
+        user: {}
       };
     default:
       return state;

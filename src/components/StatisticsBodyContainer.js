@@ -3,7 +3,7 @@ import React from 'react';
 const StatisticsBodyContainer = () => {
     return (
         <div>
-            I AM THE STATS BODY
+            This is the Statistics Component
         </div>
     );
 };
