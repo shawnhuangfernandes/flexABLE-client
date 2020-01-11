@@ -35,11 +35,24 @@ const getCurrentUser = () => {
   });
 };
 
+const getCurrentWeekWorkouts = workoutInfo => {
+  return fetch(`${API_ROOT}/week_workout`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(workoutInfo)
+  }).then(weekWorkoutData => {
+    return weekWorkoutData.json();
+  });
+};
+
 // export all the api service methods for use in other files
 export const api = {
   auth: {
     signUp,
     login,
     getCurrentUser
+  },
+  workouts: {
+    getCurrentWeekWorkouts
   }
 };
