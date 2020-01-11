@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-// import { Link } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
 import Drawer from "@material-ui/core/Drawer";
@@ -25,33 +24,34 @@ import PlannerBodyContainer from "./PlannerBodyContainer";
 import LearningCenterBodyContainer from "./LearningCenterBodyContainer";
 import SettingsBodyContainer from "./SettingsBodyContainer";
 
-const drawerWidth = 240;
+const drawerWidth = 240; // hard code width of the side bar
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
+const useStyles = makeStyles(theme => ({ // theming for the components rendered in the Dashboard Body
+  root: { 
+    display: "flex" // make the root container a flex box
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1 // make the application bar stick "in front" of the sidebar
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0
+    width: drawerWidth, // set the width of the side bar
+    flexShrink: 0 // this side bar will not shrink AT ALL w/ respect to the other items
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth // set the sidebar paper (the textured color)
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
+    flexGrow: 1, // the content (the stuff to the right of the sidebar) will dynamically grow to an equal size of the other children
+    padding: theme.spacing(3) // set MUI spacing of the content so it is spaced away from the sidebar and the header
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar // used for providing spacing
 }));
 
+// this method renders the Dashboard body
 export default function DashboardBody(props) {
-  const classes = useStyles();
+  const classes = useStyles(); // rename the styles object as classes
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // create the dispatch object to set state
 
   // This method logs the user out
   const logoutUser = () => {
@@ -59,6 +59,7 @@ export default function DashboardBody(props) {
     dispatch(logout()); // run the logout action for the auth reducer
   };
 
+  // determines what dashboard content to render based on the selection props picked by the Dashboard Container parent
   const getDashboardContentComponent = props => {
     switch (props.selection) {
       case "statistics":
@@ -74,6 +75,7 @@ export default function DashboardBody(props) {
     }
   };
 
+  // 3 item array containing all the icons, names, and routes of each sidebar option ABOVE the divider
   const upperSideBarOptions = [
     [<ShowChartIcon />, "Settings", "statistics"],
     [<EventNoteIcon />, "Planner", "planner"],
@@ -81,12 +83,14 @@ export default function DashboardBody(props) {
     [<FitnessCenterIcon />, "Learning Center", "learning-center"]
   ];
 
+  // 3 item array containing all the icons, names, and routes of each sidebar option BELOW the divider
   const lowerSideBarOptions = [
     [<FeedbackIcon />, "Send Feedback", "feedback"]
   ];
+
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      <CssBaseline /> {/* CSS Baseline for rest of component */}
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
