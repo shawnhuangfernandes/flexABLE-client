@@ -91,14 +91,18 @@ export default function DashboardBody(props) {
   return (
     <div className={classes.root}>
       <CssBaseline /> {/* CSS Baseline for rest of component */}
-      <AppBar position="fixed" className={classes.appBar}>
+      
+      {/* Render the Header Bar Component */}
+      <AppBar position="fixed" className={classes.appBar}> 
         <Toolbar>
           <Typography variant="h6" noWrap>
             FlexABLE
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
+
+      {/* Render the Sidebar Component */}
+      <Drawer 
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -134,6 +138,8 @@ export default function DashboardBody(props) {
           </Link>
         </List>
       </Drawer>
+
+      {/* Render the Body Content */}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {getDashboardContentComponent(props)}
