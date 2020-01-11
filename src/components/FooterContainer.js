@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// styles used by Footer
 const useStyles = makeStyles(theme => ({
   footer: {
     padding: theme.spacing(3, 2),
@@ -14,8 +15,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// Renders the Footer Container
 const FooterContainer = () => {
-  const classes = useStyles();
+  const classes = useStyles(); // rename styles created above
+  
   return (
     <div>
       <footer className={classes.footer}>

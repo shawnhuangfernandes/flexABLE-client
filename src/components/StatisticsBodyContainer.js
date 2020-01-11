@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const StatisticsBodyContainer = () => {
-    return (
-        <div>
-            This is the Statistics Component
-        </div>
-    );
+  return <div>This is the Statistics Component</div>;
 };
 
 export default StatisticsBodyContainer;
