@@ -12,8 +12,11 @@ const useStyles = makeStyles(theme => ({
   // theming for the components rendered in the Dashboard Body
   root: {
     display: "flex", // make the root container a flex box
-    minHeight: "100vh"
-  }
+    minHeight: "88vh"
+  },
+  plannerCalBox: {
+    minWidth: '100%'
+  },
 }));
 
 // Renders the Planner Section of FlexABLE
@@ -54,13 +57,13 @@ const PlannerBodyContainer = () => {
   // Returns the Calendar which starts on today's date
   return (
     <div className={classes.root}>
-      <Grid
+      <Grid xs={12}
         container
         direction="column"
         alignItems="center"
         className="planning-body-container"
       >
-        <Grid item xs={4}>
+        <Grid item xs={4} className={classes.plannerCalBox}>
           <Calendar
             onClickDay={onSetDate}
             activeStartDate={new Date()}
@@ -68,56 +71,10 @@ const PlannerBodyContainer = () => {
             calendarType="US"
           />
         </Grid>
-        <Grid
-          item
-          xs={8}
-          container
-          direction="column"
-          classname="week-view"
-          spacing={2}
-        >
-          <Grid
-            container
-            item
-            spacing={0}
-            direction="column"
-            classname="calendar-first-four"
-          >
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            item
-            spacing={0}
-            direction="column"
-            classname="calendar-second-four"
-          >
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item xs={1}>
-              <WorkoutCard />
-            </Grid>
-          </Grid>
+        <Grid item xs={8} className={classes.plannerCalBox}>
+          Hello
         </Grid>
+
       </Grid>
     </div>
   );
