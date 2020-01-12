@@ -28,7 +28,8 @@ const drawerWidth = 240; // hard code width of the side bar
 
 const useStyles = makeStyles(theme => ({ // theming for the components rendered in the Dashboard Body
   root: { 
-    display: "flex" // make the root container a flex box
+    display: "flex", // make the root container a flex box
+    minHeight: "100vh"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1 // make the application bar stick "in front" of the sidebar
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({ // theming for the components rendered 
   },
   content: {
     flexGrow: 1, // the content (the stuff to the right of the sidebar) will dynamically grow to an equal size of the other children
-    padding: theme.spacing(3) // set MUI spacing of the content so it is spaced away from the sidebar and the header
+    padding: theme.spacing(4) // set MUI spacing of the content so it is spaced away from the sidebar and the header
   },
   toolbar: theme.mixins.toolbar // used for providing spacing
 }));

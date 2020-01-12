@@ -25,10 +25,3 @@ code {
   height: 100%;
 }
 
-.MuiGrid-container {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  height: 100%;
-}
