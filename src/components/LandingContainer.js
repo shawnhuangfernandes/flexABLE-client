@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import { Link } from "react-router-dom";
-import { mergeClasses } from "@material-ui/styles";
 
 // Set up the styles used in the Landing Container
 const useStyles = makeStyles(theme => ({

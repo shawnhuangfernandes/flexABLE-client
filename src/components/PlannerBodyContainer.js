@@ -6,7 +6,7 @@ import { api } from "../services/api";
 import Grid from "@material-ui/core/Grid";
 import WorkoutCard from "./WorkoutCard";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Paper } from "@material-ui/core/";
 
 const useStyles = makeStyles(theme => ({
   // theming for the components rendered in the Dashboard Body
@@ -15,8 +15,11 @@ const useStyles = makeStyles(theme => ({
     minHeight: "88vh"
   },
   plannerCalBox: {
-    minWidth: '100%'
+    minWidth: "100%",
   },
+  plannerRow: {
+    height: "50%"
+  }
 }));
 
 // Renders the Planner Section of FlexABLE
@@ -54,16 +57,23 @@ const PlannerBodyContainer = () => {
     // eslint-disable-next-line
   }, [user]);
 
+  // Adds a workout on a specific date
+  const addWorkout = (e) => {
+    // grab the event, get the date
+    // bring up a modal that asks the user what exercise they'd like to add & an optional SHORT description
+  }
+
   // Returns the Calendar which starts on today's date
   return (
     <div className={classes.root}>
-      <Grid xs={12}
+      <Grid
+        xs={12}
         container
         direction="column"
         alignItems="center"
         className="planning-body-container"
       >
-        <Grid item xs={4} className={classes.plannerCalBox}>
+        <Grid item xs={4} className={classes.plannerCalBox} >
           <Calendar
             onClickDay={onSetDate}
             activeStartDate={new Date()}
@@ -72,9 +82,51 @@ const PlannerBodyContainer = () => {
           />
         </Grid>
         <Grid item xs={8} className={classes.plannerCalBox}>
-          Hello
-        </Grid>
+          <Grid xs={12} container className={classes.plannerRow}>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+                
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
 
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+          </Grid>
+          <Grid xs={12} container className={classes.plannerRow}>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+            <Grid item container xs={3} onClick={addWorkout}>
+              <Paper variant="outlined" square>
+
+              </Paper>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </div>
   );
