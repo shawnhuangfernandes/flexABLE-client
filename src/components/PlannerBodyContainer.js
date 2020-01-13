@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentDate } from "../redux/actionList";
+import { setCurrentDate, getWeekWorkouts } from "../redux/actionList";
 import { api } from "../services/api";
 import Grid from "@material-ui/core/Grid";
 import { WorkoutCard } from "./WorkoutCard";
@@ -60,18 +60,21 @@ const PlannerBodyContainer = () => {
   
       api.workouts
         .getCurrentWeekWorkouts(dateInfo)
-        .then(workoutsData => generateWeeklyWorkoutCards(workoutsData));
+        .then(workoutsData => dispatch(getWeekWorkouts(workoutsData)));
     };
   
     const generateWeeklyWorkoutCards = workoutsData => {
-      return workoutsData.map(workout => {
-        console.log(workout);
-        return workout;
+      const weekWorkout = workoutsData.map(currentDayExerciseData => {
+        return <WorkoutCard key={Math.random()} currentDayExerciseData={currentDayExerciseData}/>
       });
+
+
+      
+
     };
 
   // Adds a workout on a specific date
-  const addWorkout = e => {
+  const addWorkoutToDay = e => {
     // grab the event, get the date
     // bring up a modal that asks the user what exercise they'd like to add & an optional SHORT description
   };
@@ -95,30 +98,30 @@ const PlannerBodyContainer = () => {
         </Grid>
         <Grid item xs={8} className={classes.plannerCalBox}>
           <Grid container className={classes.plannerRow}>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
           </Grid>
           <Grid container className={classes.plannerRow}>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
-            <Grid item container xs={3} onClick={addWorkout}>
+            <Grid item container xs={3} onClick={addWorkoutToDay}>
               <WorkoutCard />
             </Grid>
           </Grid>

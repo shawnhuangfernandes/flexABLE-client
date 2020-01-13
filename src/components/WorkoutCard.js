@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 export const WorkoutCard = props => {
   const classes = useStyles();
-
+    
   return (
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
