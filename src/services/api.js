@@ -45,8 +45,18 @@ const getCurrentWeekWorkouts = workoutInfo => {
   });
 };
 
+const createNewWorkout = workoutInfo => {
+  return fetch(`${API_ROOT}/workouts`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(workoutInfo)
+  }).then(updatedWorkoutInfo => {
+    return updatedWorkoutInfo.json();
+  });
+};
+
 const updateWorkoutDescription = workoutInfo => {
-  return fetch(`${API_ROOT}/week_workout`, {
+  return fetch(`${API_ROOT}/workouts/${workoutInfo.id}`, {
     method: "PATCH",
     headers,
     body: JSON.stringify(workoutInfo)

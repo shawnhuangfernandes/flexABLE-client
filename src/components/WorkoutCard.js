@@ -34,18 +34,17 @@ const useStyles = makeStyles(theme => ({
 
 // renders the Workout card that contains information for exactly one day of workouts
 export const WorkoutCard = props => {
-
   const classes = useStyles(); // use the styles from above
 
-  const saveExerciseEntry = e => {
+  const updateExerciseEntry = e => {
     const workoutInfo = {
-      workout_id: e.target.id,
-      newDescription: e.target.value
+      id: e.target.id,
+      new_description: e.target.value
     };
 
-    api.workouts.updateWorkoutDescription(workoutInfo)
-    .then(updatedWorkoutData => console.log(updatedWorkoutData))
-
+    api.workouts
+      .updateWorkoutDescription(workoutInfo)
+      .then(updatedWorkoutData => console.log(updatedWorkoutData));
   };
 
   // this method takes a list of exercises from a specific day and generates Typography (MUI) components for use in the render method
@@ -58,7 +57,7 @@ export const WorkoutCard = props => {
               {dayWorkout.exercise_name}
             </Typography>
             <TextField
-              onBlur={saveExerciseEntry}
+              onBlur={updateExerciseEntry}
               className={classes.margin}
               id={dayWorkout.workout.id.toString()}
               fullWidth
