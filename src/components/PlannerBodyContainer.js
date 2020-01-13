@@ -40,6 +40,9 @@ const PlannerBodyContainer = () => {
   const classes = useStyles(); // rename the styles object as classes
   const dispatch = useDispatch(); // dispatch for settings Redux State
   const user = useSelector(state => state.authReducer.user);
+  const workouts = useSelector(
+    state => state.workoutReducer.selectedWeeksWorkouts
+  );
 
   // After Planner Body Component Mounts On Page
   useEffect(() => {
@@ -47,34 +50,50 @@ const PlannerBodyContainer = () => {
     // eslint-disable-next-line
   }, [user]);
 
-    // method for when a day on the Calendar is clicked
-    const onSetDate = date => {
-      dispatch(setCurrentDate(date)); // set Redux state to the selected date
-  
-      const dateInfo = {
-        user_id: user.id, // get user from state
-        day: date.getDate(), // get the day
-        month: date.getMonth() + 1, // Javascript get month is indexed at [0-11], but ruby is indexed at [1-12]
-        year: date.getFullYear() // get the year
-      };
-  
-      api.workouts
-        .getCurrentWeekWorkouts(dateInfo)
-        .then(workoutsData => dispatch(getWeekWorkouts(workoutsData)));
+  // method for when a day on the Calendar is clicked
+  const onSetDate = date => {
+    dispatch(setCurrentDate(date)); // set Redux state to the selected date
+
+    const dateInfo = {
+      user_id: user.id, // get user from state
+      day: date.getDate(), // get the day
+      month: date.getMonth() + 1, // Javascript get month is indexed at [0-11], but ruby is indexed at [1-12]
+      year: date.getFullYear() // get the year
     };
-  
-    const generateWeeklyWorkoutCards = workoutsData => {
-      const weekWorkout = workoutsData.map(currentDayExerciseData => {
-        return <WorkoutCard key={Math.random()} currentDayExerciseData={currentDayExerciseData}/>
-      });
 
+    api.workouts // api service for getting the weeks workouts
+      .getCurrentWeekWorkouts(dateInfo)
+      .then(workoutsData => dispatch(getWeekWorkouts(workoutsData)));
+  };
 
-      
-
-    };
+  // workouts redux state used here
+  const generateWeeklyWorkoutCards = (startingDOW, endingDOW) => {
+    // helper method that generates a workouts from a starting day of week to ending day of week
+    const partialWeekWorkoutArray = []; // create an empty container array
+    if (workouts.length !== undefined) {
+      // if the STATE workouts array HAS BEEN defined
+      for (let i = startingDOW; i < endingDOW; i++) {
+        // go from the starting day of the week to the ending day of the week
+        partialWeekWorkoutArray.push(
+          // push a new Grid item with a nested workout card (with props of the workout data of that day of week)
+          <Grid
+            item
+            container
+            xs={3}
+            onClick={addWorkoutToDay}
+            key={Math.random()}
+          >
+            <WorkoutCard workoutData={workouts[i]} />
+          </Grid>
+        );
+      }
+    }
+    return partialWeekWorkoutArray; // return the partial list of workouts between the specified days of the week
+  };
 
   // Adds a workout on a specific date
   const addWorkoutToDay = e => {
+    console.log("modal pops up!");
     // grab the event, get the date
     // bring up a modal that asks the user what exercise they'd like to add & an optional SHORT description
   };
@@ -92,38 +111,15 @@ const PlannerBodyContainer = () => {
           <Calendar
             onClickDay={onSetDate}
             activeStartDate={new Date()}
-            value={new Date()}
             calendarType="US"
           />
         </Grid>
         <Grid item xs={8} className={classes.plannerCalBox}>
           <Grid container className={classes.plannerRow}>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
+            {generateWeeklyWorkoutCards(0, 4)}
           </Grid>
           <Grid container className={classes.plannerRow}>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
-            <Grid item container xs={3} onClick={addWorkoutToDay}>
-              <WorkoutCard />
-            </Grid>
+            {generateWeeklyWorkoutCards(4, 7)}
           </Grid>
         </Grid>
       </Grid>
