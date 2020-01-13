@@ -45,6 +45,16 @@ const getCurrentWeekWorkouts = workoutInfo => {
   });
 };
 
+const updateWorkoutDescription = workoutInfo => {
+  return fetch(`${API_ROOT}/week_workout`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(workoutInfo)
+  }).then(updatedWorkoutInfo => {
+    return updatedWorkoutInfo.json();
+  });
+};
+
 // export all the api service methods for use in other files
 export const api = {
   auth: {
@@ -53,6 +63,7 @@ export const api = {
     getCurrentUser
   },
   workouts: {
-    getCurrentWeekWorkouts
+    getCurrentWeekWorkouts,
+    updateWorkoutDescription
   }
 };

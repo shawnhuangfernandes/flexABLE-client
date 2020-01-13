@@ -52,7 +52,11 @@ const PlannerBodyContainer = () => {
 
   // method for when a day on the Calendar is clicked
   const onSetDate = date => {
-    dispatch(setCurrentDate(date)); // set Redux state to the selected date
+    
+    const stringifiedDate = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDate())).slice(-2)}`
+
+    dispatch(setCurrentDate(stringifiedDate)); // set Redux state to the selected date
+
 
     const dateInfo = {
       user_id: user.id, // get user from state
@@ -80,22 +84,14 @@ const PlannerBodyContainer = () => {
             item
             container
             xs={3}
-            onClick={addWorkoutToDay}
             key={Math.random()}
           >
-            <WorkoutCard workoutData={workouts[i]} />
+            <WorkoutCard workoutData={workouts[i]}/>
           </Grid>
         );
       }
     }
     return partialWeekWorkoutArray; // return the partial list of workouts between the specified days of the week
-  };
-
-  // Adds a workout on a specific date
-  const addWorkoutToDay = e => {
-    console.log("modal pops up!");
-    // grab the event, get the date
-    // bring up a modal that asks the user what exercise they'd like to add & an optional SHORT description
   };
 
   // Returns the Calendar which starts on today's date
