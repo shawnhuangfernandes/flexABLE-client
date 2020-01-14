@@ -65,6 +65,14 @@ const updateWorkoutDescription = workoutInfo => {
   });
 };
 
+const getAllExercises = () => {
+    return fetch(`${API_ROOT}/exercises`, {
+      headers
+    }).then(userData => {
+      return userData.json();
+    });
+}
+
 // export all the api service methods for use in other files
 export const api = {
   auth: {
@@ -75,5 +83,8 @@ export const api = {
   workouts: {
     getCurrentWeekWorkouts,
     updateWorkoutDescription
+  },
+  exercises: {
+    getAllExercises
   }
 };

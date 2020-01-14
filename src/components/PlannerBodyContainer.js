@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentDate, getWeekWorkouts } from "../redux/actionList";
+import { setCurrentDate, getWeekWorkouts, setExerciseList } from "../redux/actionList";
 import { api } from "../services/api";
 import Grid from "@material-ui/core/Grid";
 import { WorkoutCard } from "./WorkoutCard";
@@ -47,6 +47,8 @@ const PlannerBodyContainer = () => {
   // After Planner Body Component Mounts On Page
   useEffect(() => {
     onSetDate(new Date());
+    api.exercises.getAllExercises()
+    .then(exercises => dispatch(setExerciseList(exercises)))
     // eslint-disable-next-line
   }, [user]);
 

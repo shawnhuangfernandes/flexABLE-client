@@ -1,0 +1,1 @@
+export const GET_EXERCISES = 'GET_EXERCISES'
