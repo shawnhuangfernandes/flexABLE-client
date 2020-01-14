@@ -82,7 +82,8 @@ export const api = {
   },
   workouts: {
     getCurrentWeekWorkouts,
-    updateWorkoutDescription
+    updateWorkoutDescription,
+    createNewWorkout
   },
   exercises: {
     getAllExercises

@@ -10,16 +10,15 @@ import TextField from "@material-ui/core/TextField";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import { api } from "../services/api";
 import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import Input from "@material-ui/core/Input"; 
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 // use styles for MUI components
 const useStyles = makeStyles(theme => ({
   card: {
-    minWidth: "100%"
+    minWidth: "100%",
+    overflow: "auto"
   },
   bullet: {
     display: "inline-block",
@@ -33,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 0
   },
   cardContent: {
-    height: "85%"
+    height: "300px",
+    overflow: "clipped"
   },
   formControl: {
     margin: theme.spacing(1),
@@ -94,18 +94,19 @@ export const WorkoutCard = props => {
       });
 
       const addNewExercise = e => {
-        console.log(e.target.value); // gets me the id of the exercise
-        console.log(typeof props.workoutData.date);
-        console.log(user.id);
         const dateStringSplit = props.workoutData.date.split('-')
 
-        console.log(dateStringSplit)
         const workoutInfo = {
-          id: e.target.value,
+          exercise_id: parseInt(e.target.value),
           new_description: "",
-          
+          year: parseInt(dateStringSplit[0]),
+          month: parseInt(dateStringSplit[1]),
+          day: parseInt(dateStringSplit[2]),
           user_id: user.id
         };
+
+        api.workouts.createNewWorkout(workoutInfo)
+        .then(workoutInfo => console.log(workoutInfo))
       };
 
       const getExerciseOptions = () => {

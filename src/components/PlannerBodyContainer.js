@@ -118,6 +118,7 @@ const PlannerBodyContainer = () => {
           </Grid>
           <Grid container className={classes.plannerRow}>
             {generateWeeklyWorkoutCards(4, 7)}
+            
           </Grid>
         </Grid>
       </Grid>
