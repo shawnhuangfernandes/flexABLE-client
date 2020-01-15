@@ -20,8 +20,10 @@ const ExerciseDropdown = props => {
   );
 
   // get the exercise options from redux state and map them to options for the dropdown
-  const getExerciseOptions = () => {
-    const exerciseOptions = exercises.map(exercise => {
+  const getExerciseOptions = (category) => {
+    const exerciseOptions = exercises.filter(exercise => 
+      exercise.category === category
+    ).map(exercise => {
       return (
         <option value={exercise.id} key={Math.random()}>
           {exercise.name}
@@ -29,7 +31,7 @@ const ExerciseDropdown = props => {
       );
     });
 
-    return exerciseOptions;
+    return <optgroup label={category}>{exerciseOptions}</optgroup>;
   };
 
   return (
@@ -46,7 +48,8 @@ const ExerciseDropdown = props => {
             <option value={1}>Option 1</option>
             <option value={2}>Option 2</option>
           </optgroup> */}
-        <optgroup label="Exercises">{getExerciseOptions()}</optgroup>
+        {getExerciseOptions("Arms")}
+        {getExerciseOptions("Activity")}
       </Select>
     </FormControl>
   );
