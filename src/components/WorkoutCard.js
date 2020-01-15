@@ -9,9 +9,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import { api } from "../services/api";
-
+import Divider from "@material-ui/core/Divider"
 import ExerciseDropdown from "./ExerciseDropdown";
 
 // use styles for MUI components
@@ -89,9 +88,7 @@ export const WorkoutCard = props => {
       .then(message => setWorkoutList(deleteWorkoutFromLocalState(id)));
   };
 
-
   const deleteWorkoutFromLocalState = id => {
-    
     let stateCopy = Object.assign({}, workoutList);
     stateCopy.day_workout_info = stateCopy.day_workout_info.filter(exercise => {
       return exercise.workout.id !== id;
@@ -158,7 +155,8 @@ export const WorkoutCard = props => {
   return (
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
-        <Typography variant="h5">{props.workoutData.date}</Typography>
+        <Typography variant="h5">{`${props.dayOfTheWeek} - (${props.workoutData.date.substring(5).replace("0", "").replace("-", "/")})`}</Typography>
+        <Divider/>
         {listOutExercises(workoutList)}
       </CardContent>
       <CardActions></CardActions>

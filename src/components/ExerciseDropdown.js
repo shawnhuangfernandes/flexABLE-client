@@ -44,11 +44,15 @@ const ExerciseDropdown = props => {
         onChange={props.handleChange}
       >
         <option value="" />
-        {/* <optgroup label="Category 1">
-            <option value={1}>Option 1</option>
-            <option value={2}>Option 2</option>
-          </optgroup> */}
         {getExerciseOptions("Arms")}
+        {getExerciseOptions("Abs")}
+        {getExerciseOptions("Back")}
+        {getExerciseOptions("Chest")}
+        {getExerciseOptions("Compound")}
+        {getExerciseOptions("Cardio")}
+        {getExerciseOptions("Hips")}
+        {getExerciseOptions("Legs")}
+        {getExerciseOptions("Shoulders")}
         {getExerciseOptions("Activity")}
       </Select>
     </FormControl>
