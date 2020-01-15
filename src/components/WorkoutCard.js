@@ -10,8 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { api } from "../services/api";
-import Divider from "@material-ui/core/Divider"
+import Divider from "@material-ui/core/Divider";
 import ExerciseDropdown from "./ExerciseDropdown";
+import CheckIcon from '@material-ui/icons/Check';
+import { ToggleButton } from '@material-ui/lab';
 
 // use styles for MUI components
 const useStyles = makeStyles(theme => ({
@@ -49,7 +51,7 @@ export const WorkoutCard = props => {
     const workoutInfo = {
       // set the request body info (or backend params)
       id: e.target.id, // get the workout id
-      new_description: e.target.value // set the workout description
+      description: e.target.value // set the workout description
     };
 
     api.workouts
@@ -96,6 +98,10 @@ export const WorkoutCard = props => {
     return stateCopy;
   };
 
+  const toggleWorkoutComplete = (e, workout) => {
+
+  }
+
   // this method takes a list of exercises from a specific day and generates Typography (MUI) components for use in the render method
   const listOutExercises = dayData => {
     if (dayData.day_workout_info.length > 0) {
@@ -129,6 +135,22 @@ export const WorkoutCard = props => {
                     >
                       <DeleteIcon />
                     </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={e =>
+                        deleteWorkoutFromCard(e, dayWorkout.workout.id)
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <ToggleButton
+                      size="small"
+                      value="check"
+                      selected={dayWorkout.workout.completed}
+                      onChange={e => toggleWorkoutComplete(e, dayWorkout.workout)} // get id and completed and toggle completed
+                    >
+                      <CheckIcon />
+                    </ToggleButton>
                   </InputAdornment>
                 )
               }}
@@ -155,8 +177,13 @@ export const WorkoutCard = props => {
   return (
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
-        <Typography variant="h5">{`${props.dayOfTheWeek} - (${props.workoutData.date.substring(5).replace("0", "").replace("-", "/")})`}</Typography>
-        <Divider/>
+        <Typography variant="h5">{`${
+          props.dayOfTheWeek
+        } - (${props.workoutData.date
+          .substring(5)
+          .replace("0", "")
+          .replace("-", "/")})`}</Typography>
+        <Divider />
         {listOutExercises(workoutList)}
       </CardContent>
       <CardActions></CardActions>
