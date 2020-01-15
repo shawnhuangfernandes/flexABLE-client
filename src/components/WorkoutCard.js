@@ -83,17 +83,18 @@ export const WorkoutCard = props => {
     return stateCopy;
   };
 
-
   const deleteWorkoutFromCard = (e, id) => {
     api.workouts
       .deleteWorkout(id)
-      .then(setWorkoutList(deleteWorkoutFromLocalState(id)));
+      .then(message => setWorkoutList(deleteWorkoutFromLocalState(id)));
   };
 
+
   const deleteWorkoutFromLocalState = id => {
+    
     let stateCopy = Object.assign({}, workoutList);
     stateCopy.day_workout_info = stateCopy.day_workout_info.filter(exercise => {
-      return exercise.workout.id !== id
+      return exercise.workout.id !== id;
     });
     return stateCopy;
   };
@@ -123,19 +124,18 @@ export const WorkoutCard = props => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <FitnessCenterIcon />
+                    <IconButton
+                      aria-label="delete"
+                      onClick={e =>
+                        deleteWorkoutFromCard(e, dayWorkout.workout.id)
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
                   </InputAdornment>
                 )
               }}
             />
-            <IconButton
-              aria-label="delete"
-              onClick={e => deleteWorkoutFromCard(e, dayWorkout.workout.id)}
-            >
-              {" "}
-              {/* Refactor/Redesign needed here */}
-              <DeleteIcon />
-            </IconButton>
           </div>
         );
       });
@@ -159,7 +159,7 @@ export const WorkoutCard = props => {
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
         <Typography variant="h5">{props.workoutData.date}</Typography>
-        {listOutExercises(props.workoutData)}
+        {listOutExercises(workoutList)}
       </CardContent>
       <CardActions></CardActions>
     </Card>
