@@ -64,7 +64,7 @@ const deleteWorkout = workoutId => {
   });
 };
 
-const updateWorkoutDescription = workoutInfo => {
+const updateWorkout = workoutInfo => {
   return fetch(`${API_ROOT}/workouts/${workoutInfo.id}`, {
     method: "PATCH",
     headers,
@@ -91,7 +91,7 @@ export const api = {
   },
   workouts: {
     getCurrentWeekWorkouts,
-    updateWorkoutDescription,
+    updateWorkout,
     createNewWorkout,
     deleteWorkout
   },

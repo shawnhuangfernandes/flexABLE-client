@@ -12,8 +12,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { api } from "../services/api";
 import Divider from "@material-ui/core/Divider";
 import ExerciseDropdown from "./ExerciseDropdown";
-import CheckIcon from '@material-ui/icons/Check';
-import { ToggleButton } from '@material-ui/lab';
+import CheckIcon from "@material-ui/icons/Check";
+import { ToggleButton } from "@material-ui/lab";
 
 // use styles for MUI components
 const useStyles = makeStyles(theme => ({
@@ -44,7 +44,7 @@ export const WorkoutCard = props => {
 
   const user = useSelector(state => state.authReducer.user); // get auth'd user info from redux state
 
-  const [workoutList, setWorkoutList] = useState(props.workoutData);
+  const [workoutList, setWorkoutList] = useState(props.workoutData); // local state for list of workouts
 
   //EVENT HANDLER this method accesses backend to update a specific workout description
   const updateWorkoutEntry = e => {
@@ -55,7 +55,7 @@ export const WorkoutCard = props => {
     };
 
     api.workouts
-      .updateWorkoutDescription(workoutInfo)
+      .updateWorkout(workoutInfo)
       .then(updatedWorkoutData => console.log(updatedWorkoutData));
   };
 
@@ -98,15 +98,38 @@ export const WorkoutCard = props => {
     return stateCopy;
   };
 
-  const toggleWorkoutComplete = (e, workout) => {
+    //EVENT HANDLER this method accesses backend to update a specific workout description
+    const toggleWorkoutComplete = (e, workout) => {
+      const workoutInfo = {
+        // set the request body info (or backend params)
+        id: workout.id, // get the workout id
+        completed: !workout.completed // toggle the workout complete status
+      };
+  
+      api.workouts // pass it to the api
+        .updateWorkout(workoutInfo)
+        .then(updatedWorkoutData => setWorkoutList(updateWorkoutCompletionToLocalState(updatedWorkoutData)));
+    };
 
-  }
+    const updateWorkoutCompletionToLocalState = updatedWorkoutInfo => { // REFACTOR
+      let stateCopy = Object.assign({}, workoutList);
+      stateCopy.day_workout_info.map(workout => {
+        if (workout.workout.id === updatedWorkoutInfo.id) {
+          console.log(updatedWorkoutInfo.completed)
+          return updatedWorkoutInfo
+        }
+        else {
+          return workout
+        }
+      })
+      return stateCopy;
+    };
 
   // this method takes a list of exercises from a specific day and generates Typography (MUI) components for use in the render method
-  const listOutExercises = dayData => {
-    if (dayData.day_workout_info.length > 0) {
+  const listOutExercises = workoutList => {
+    if (workoutList.day_workout_info.length > 0) {
       // if we have workouts durrent the current day
-      const workoutArrayToJSX = dayData.day_workout_info.map(dayWorkout => {
+      const workoutArrayToJSX = workoutList.day_workout_info.map(dayWorkout => {
         // go through the array of workouts and for each set of exercises
         return (
           // return a label and text field for the exercise name and description
@@ -135,19 +158,13 @@ export const WorkoutCard = props => {
                     >
                       <DeleteIcon />
                     </IconButton>
-                    <IconButton
-                      aria-label="delete"
-                      onClick={e =>
-                        deleteWorkoutFromCard(e, dayWorkout.workout.id)
-                      }
-                    >
-                      <DeleteIcon />
-                    </IconButton>
                     <ToggleButton
                       size="small"
                       value="check"
                       selected={dayWorkout.workout.completed}
-                      onChange={e => toggleWorkoutComplete(e, dayWorkout.workout)} // get id and completed and toggle completed
+                      onClick={e =>
+                        toggleWorkoutComplete(e, dayWorkout.workout)
+                      }
                     >
                       <CheckIcon />
                     </ToggleButton>
