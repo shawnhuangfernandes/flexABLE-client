@@ -55,6 +55,15 @@ const createNewWorkout = workoutInfo => {
   });
 };
 
+const deleteWorkout = workoutId => {
+  return fetch(`${API_ROOT}/workouts/${workoutId}`, {
+    method: "DELETE",
+    headers,
+  }).then(deleteResponse => {
+    return deleteResponse.json();
+  });
+};
+
 const updateWorkoutDescription = workoutInfo => {
   return fetch(`${API_ROOT}/workouts/${workoutInfo.id}`, {
     method: "PATCH",
@@ -83,7 +92,8 @@ export const api = {
   workouts: {
     getCurrentWeekWorkouts,
     updateWorkoutDescription,
-    createNewWorkout
+    createNewWorkout,
+    deleteWorkout
   },
   exercises: {
     getAllExercises

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
@@ -7,12 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import { api } from "../services/api";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input"; 
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
+import ExerciseDropdown from "./ExerciseDropdown";
 
 // use styles for MUI components
 const useStyles = makeStyles(theme => ({
@@ -34,28 +34,68 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     height: "300px",
     overflow: "clipped"
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 185
   }
 }));
 
 // renders the Workout card that contains information for exactly one day of workouts
 export const WorkoutCard = props => {
   const classes = useStyles(); // use the styles from above
-  const exercises = useSelector(state => state.exerciseReducer.exercises);
-  const user = useSelector(state => state.authReducer.user);
 
-  const updateExerciseEntry = e => {
+  const user = useSelector(state => state.authReducer.user); // get auth'd user info from redux state
+
+  const [workoutList, setWorkoutList] = useState(props.workoutData);
+
+  //EVENT HANDLER this method accesses backend to update a specific workout description
+  const updateWorkoutEntry = e => {
     const workoutInfo = {
-      id: e.target.id,
-      new_description: e.target.value
+      // set the request body info (or backend params)
+      id: e.target.id, // get the workout id
+      new_description: e.target.value // set the workout description
     };
 
     api.workouts
       .updateWorkoutDescription(workoutInfo)
       .then(updatedWorkoutData => console.log(updatedWorkoutData));
+  };
+
+  // this method adds a new workout for the user on a specific date
+  const addNewExercise = e => {
+    const dateStringSplit = props.workoutData.date.split("-"); // need to split javascript date to array of strings to use in backend
+
+    // set the body information for the request to the backend
+    const workoutInfo = {
+      exercise_id: parseInt(e.target.value),
+      new_description: "",
+      year: parseInt(dateStringSplit[0]),
+      month: parseInt(dateStringSplit[1]),
+      day: parseInt(dateStringSplit[2]),
+      user_id: user.id
+    };
+
+    api.workouts.createNewWorkout(workoutInfo).then(workoutInfo => {
+      setWorkoutList(addNewWorkoutToLocalState(workoutInfo));
+    });
+  };
+
+  const addNewWorkoutToLocalState = workoutInfo => {
+    let stateCopy = Object.assign({}, workoutList);
+    stateCopy.day_workout_info.push(workoutInfo);
+    return stateCopy;
+  };
+
+
+  const deleteWorkoutFromCard = (e, id) => {
+    api.workouts
+      .deleteWorkout(id)
+      .then(setWorkoutList(deleteWorkoutFromLocalState(id)));
+  };
+
+  const deleteWorkoutFromLocalState = id => {
+    let stateCopy = Object.assign({}, workoutList);
+    stateCopy.day_workout_info = stateCopy.day_workout_info.filter(exercise => {
+      return exercise.workout.id !== id
+    });
+    return stateCopy;
   };
 
   // this method takes a list of exercises from a specific day and generates Typography (MUI) components for use in the render method
@@ -71,10 +111,9 @@ export const WorkoutCard = props => {
               {dayWorkout.exercise_name}
             </Typography>
             <TextField
-              onBlur={updateExerciseEntry}
+              onBlur={updateWorkoutEntry}
               className={classes.margin}
               id={dayWorkout.workout.id.toString()}
-              fullWidth
               placeholder="Enter Description"
               defaultValue={
                 dayWorkout.workout.description
@@ -89,59 +128,28 @@ export const WorkoutCard = props => {
                 )
               }}
             />
+            <IconButton
+              aria-label="delete"
+              onClick={e => deleteWorkoutFromCard(e, dayWorkout.workout.id)}
+            >
+              {" "}
+              {/* Refactor/Redesign needed here */}
+              <DeleteIcon />
+            </IconButton>
           </div>
         );
       });
 
-      const addNewExercise = e => {
-        const dateStringSplit = props.workoutData.date.split('-')
-
-        const workoutInfo = {
-          exercise_id: parseInt(e.target.value),
-          new_description: "",
-          year: parseInt(dateStringSplit[0]),
-          month: parseInt(dateStringSplit[1]),
-          day: parseInt(dateStringSplit[2]),
-          user_id: user.id
-        };
-
-        api.workouts.createNewWorkout(workoutInfo)
-        .then(workoutInfo => console.log(workoutInfo))
-      };
-
-      const getExerciseOptions = () => {
-        const exerciseOptions = exercises.map(exercise => {
-          return (
-            <option value={exercise.id} key={Math.random()}>
-              {exercise.name}
-            </option>
-          );
-        });
-
-        return exerciseOptions;
-      };
-
       return (
         <>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="grouped-native-select">
-              Add Exercise
-            </InputLabel>
-            <Select
-              native
-              defaultValue=""
-              input={<Input id="grouped-native-select" />}
-              onChange={addNewExercise}
-            >
-              <option value="" />
-              {/* <optgroup label="Category 1">
-                <option value={1}>Option 1</option>
-                <option value={2}>Option 2</option>
-              </optgroup> */}
-              <optgroup label="Exercises">{getExerciseOptions()}</optgroup>
-            </Select>
-          </FormControl>
+          <ExerciseDropdown handleChange={addNewExercise} />
           {workoutArrayToJSX}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ExerciseDropdown handleChange={addNewExercise} />
         </>
       );
     }
