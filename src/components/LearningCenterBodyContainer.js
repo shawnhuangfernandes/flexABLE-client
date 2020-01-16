@@ -53,10 +53,6 @@ export default function LearningCenterBodyContainer() {
     setValue(newValue);
   };
 
-  const useEffect = () => {
-    
-  }
-
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">

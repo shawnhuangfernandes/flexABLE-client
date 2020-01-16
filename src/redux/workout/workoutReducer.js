@@ -9,8 +9,8 @@ const initialState = {
 export const workoutReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_WORKOUTS: // if a date has been chosen
-      return {
-        ...state,
+    console.log(action.payload);  
+    return {
         selectedWeeksWorkouts: action.payload // set the selected date state to the payload contained in the action
       };
     default:
