@@ -40,7 +40,7 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    width: '100%',
+    width: '65%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -52,6 +52,10 @@ export default function LearningCenterBodyContainer() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const useEffect = () => {
+    
+  }
 
   return (
     <div className={classes.root}>

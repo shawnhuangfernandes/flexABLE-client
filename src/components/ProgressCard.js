@@ -37,7 +37,7 @@ const ProgressCard = props => {
       <CardContent className={classes.cardContent}>
         <Typography variant="h5">Week's Results</Typography>
         <Divider />
-        <Typography variant="h5">Percent Complete: {props.workoutsCompleted}%</Typography>
+        <Typography variant="h5">Completion: {props.workoutsCompleted}%</Typography>
       </CardContent>
       <CardActions></CardActions>
     </Card>

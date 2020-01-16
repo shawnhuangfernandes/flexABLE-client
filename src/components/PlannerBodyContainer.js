@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     minHeight: "88vh"
   },
   plannerCalBox: {
-    minWidth: "100%"
+    minWidth: "100%",
+    maxHeight: "600px"
   },
   plannerRow: {
     height: "50%"
@@ -54,6 +55,7 @@ const useStyles = makeStyles(theme => ({
 const PlannerBodyContainer = () => {
   const classes = useStyles(); // rename the styles object as classes
   const dispatch = useDispatch(); // dispatch for settings Redux State
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const user = useSelector(state => state.authReducer.user);
   const workouts = useSelector(
     state => state.workoutReducer.selectedWeeksWorkouts
@@ -70,6 +72,7 @@ const PlannerBodyContainer = () => {
 
   // method for when a day on the Calendar is clicked
   const onSetDate = date => {
+    setSelectedDate(date);
     const stringifiedDate = `${date.getFullYear()}-${(
       "0" +
       (date.getMonth() + 1)
@@ -131,7 +134,12 @@ const PlannerBodyContainer = () => {
         workouts[6].day_workout_info
       )
 
-    console.log(totalWorkoutsArray);
+    totalWorkoutsArray.forEach(workout => {
+      if (workout.workout.completed === true) {
+        numberWorkoutsCompleted++;
+      }
+    })
+    return (totalWorkoutsArray.length !== 0 ? Math.ceil(numberWorkoutsCompleted/totalWorkoutsArray.length * 100) : 0)
   }
 
   // Returns the Calendar which starts on today's date
@@ -146,7 +154,7 @@ const PlannerBodyContainer = () => {
         <Grid item xs={4} className={classes.plannerCalBox}>
           <Calendar
             onClickDay={onSetDate}
-            activeStartDate={new Date()}
+            value={selectedDate}
             calendarType="US"
           />
         </Grid>

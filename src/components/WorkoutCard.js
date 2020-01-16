@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardContent: {
     height: "300px",
-    overflow: "clipped"
+    overflow: "scroll"
   }
 }));
 
