@@ -66,15 +66,15 @@ export const WorkoutCard = props => {
     // set the body information for the request to the backend
     const workoutInfo = {
       exercise_id: parseInt(e.target.value),
+      user_id: user.id,
       new_description: "",
       year: parseInt(dateStringSplit[0]),
       month: parseInt(dateStringSplit[1]),
       day: parseInt(dateStringSplit[2]),
-      user_id: user.id
     };
 
-    api.workouts.createNewWorkout(workoutInfo).then(workoutInfo => {
-      setWorkoutList(addNewWorkoutToLocalState(workoutInfo));
+    api.workouts.createNewWorkout(workoutInfo).then(returnedWorkoutInfo => {
+      setWorkoutList(addNewWorkoutToLocalState(returnedWorkoutInfo));
     });
   };
 
@@ -87,7 +87,9 @@ export const WorkoutCard = props => {
   const deleteWorkoutFromCard = (e, id) => {
     api.workouts
       .deleteWorkout(id)
-      .then(message => setWorkoutList(deleteWorkoutFromLocalState(id)));
+      .then(message => {
+        setWorkoutList(deleteWorkoutFromLocalState(id))
+      });
   };
 
   const deleteWorkoutFromLocalState = id => {
@@ -115,7 +117,6 @@ export const WorkoutCard = props => {
       let stateCopy = Object.assign({}, workoutList);
       stateCopy.day_workout_info.map(workout => {
         if (workout.workout.id === updatedWorkoutInfo.id) {
-          console.log(updatedWorkoutInfo.completed)
           return updatedWorkoutInfo
         }
         else {

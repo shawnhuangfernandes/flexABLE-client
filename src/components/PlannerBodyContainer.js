@@ -131,17 +131,7 @@ const PlannerBodyContainer = () => {
         workouts[6].day_workout_info
       )
 
-      console.log(totalWorkoutsArray[0] !== undefined ? totalWorkoutsArray[0].workout.completed : false);
-
-      // totalWorkoutsArray.forEach(workout => {
-      //   workout.forEach(exercise => {
-      //     if (exercise.completed === true) {
-      //       numberWorkoutsCompleted++
-      //     }
-      //   }
-      // )})
-  
-      // return numberWorkoutsCompleted/totalWorkoutsArray.length + 1;
+    console.log(totalWorkoutsArray);
   }
 
   // Returns the Calendar which starts on today's date
