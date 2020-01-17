@@ -3,7 +3,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { api } from "../services/api";
 import { Route } from "react-router-dom";
-import { signIn } from "../redux/actionList";
+import { signIn, setExerciseList } from "../redux/actionList";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import LandingContainer from "./LandingContainer";
@@ -23,7 +23,7 @@ const MainContainer = props => {
 
       api.exercises
         .getAllExercises()
-        .then(exercises => dispatch(getExerciseList(exercises)));
+        .then(exercises => dispatch(setExerciseList(exercises)));
     }
     // eslint-disable-next-line
   }, []);
