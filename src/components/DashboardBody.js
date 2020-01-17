@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
@@ -54,6 +54,8 @@ export default function DashboardBody(props) {
 
   const dispatch = useDispatch(); // create the dispatch object to set state
 
+  const user = useSelector(state => state.authReducer.user);
+
   // This method logs the user out
   const logoutUser = () => {
     localStorage.removeItem("token"); // removes the JWT token of the user from local storage
@@ -64,15 +66,15 @@ export default function DashboardBody(props) {
   const getDashboardContentComponent = props => {
     switch (props.selection) {
       case "statistics":
-        return <StatisticsBodyContainer />;
+        return <StatisticsBodyContainer user={user}/>;
       case "planner":
-        return <PlannerBodyContainer />;
+        return <PlannerBodyContainer user={user}/>;
       case "learning-center":
-        return <LearningCenterBodyContainer />;
+        return <LearningCenterBodyContainer user={user}/>;
       case "settings":
-        return <SettingsBodyContainer />;
+        return <SettingsBodyContainer user={user}/>;
       default:
-        return <StatisticsBodyContainer />;
+        return <StatisticsBodyContainer user={user}/>;
     }
   };
 

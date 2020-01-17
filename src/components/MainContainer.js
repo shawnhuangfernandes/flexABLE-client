@@ -11,7 +11,6 @@ import DashboardContainer from "./DashboardContainer";
 const MainContainer = props => {
   // React hook to use Redux dispatch
   const dispatch = useDispatch();
-
   // After MainContainer Component Mounts On Page
   useEffect(() => {
     const token = localStorage.getItem("token"); // Get the JWT token from local storage
