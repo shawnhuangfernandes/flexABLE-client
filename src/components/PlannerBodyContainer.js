@@ -44,8 +44,10 @@ const PlannerBodyContainer = props => {
         user_id: props.user.id,
         date: currentDate
       })
-      .then(workoutsForWeek => dispatch(getWeekWorkouts(workoutsForWeek))); // dispatch to change the days of the week selected
-  }); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
+      .then(workoutsForWeek => {
+        console.log(workoutsForWeek)
+        dispatch(getWeekWorkouts(workoutsForWeek))}); // dispatch to change the days of the week selected
+  }, [currentDate]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // mapping method that generates our DayCards goes here
 
