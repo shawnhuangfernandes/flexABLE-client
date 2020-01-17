@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WorkoutCard = () => {
+const DayCard = () => {
   return (
     <div>
       

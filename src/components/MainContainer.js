@@ -4,13 +4,13 @@ import SignUp from "./SignUp";
 import { api } from "../services/api";
 import { Route } from "react-router-dom";
 import { signIn } from "../redux/actionList";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import LandingContainer from './LandingContainer'
-import DashboardContainer from './DashboardContainer'
+import LandingContainer from "./LandingContainer";
+import DashboardContainer from "./DashboardContainer";
 const MainContainer = props => {
   // React hook to use Redux dispatch
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // After MainContainer Component Mounts On Page
   useEffect(() => {
@@ -18,8 +18,12 @@ const MainContainer = props => {
     if (token) {
       // If a JWT token exists in local storage
       api.auth.getCurrentUser().then(user => {
-      dispatch(signIn(user)); 
+        dispatch(signIn(user));
       });
+
+      api.exercises
+        .getAllExercises()
+        .then(exercises => dispatch(getExerciseList(exercises)));
     }
     // eslint-disable-next-line
   }, []);
@@ -50,5 +54,3 @@ const MainContainer = props => {
 };
 
 export default MainContainer;
-
-

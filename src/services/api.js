@@ -26,7 +26,6 @@ const signUp = data => {
   }).then(userData => userData.json());
 };
 
-// METHOD: api request for getting a current user (to verify that they are authorized)
 const getCurrentUser = () => {
   return fetch(`${API_ROOT}/user_is_authed`, {
     headers
