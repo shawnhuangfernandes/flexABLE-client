@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
@@ -53,8 +53,6 @@ export default function DashboardBody(props) {
   const classes = useStyles(); // rename the styles object as classes
 
   const dispatch = useDispatch(); // create the dispatch object to set state
-
-  const user = useSelector(state => state.authReducer.user);
 
   // This method logs the user out
   const logoutUser = () => {
