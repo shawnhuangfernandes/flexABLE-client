@@ -45,13 +45,13 @@ const PlannerBodyContainer = props => {
         date: currentDate
       })
       .then(workoutsForWeek => {
+        console.log(workoutsForWeek)
         dispatch(getWeekWorkouts(workoutsForWeek));
       })
-  }); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
+  }, []); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // mapping method that generates our DayCards from week workouts
   const mapToDayCards = () => {
-    console.log(weekWorkouts)
     return null
   };
 
