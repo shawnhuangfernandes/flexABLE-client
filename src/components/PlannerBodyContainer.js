@@ -38,6 +38,8 @@ const PlannerBodyContainer = props => {
       .then(workoutsForWeek => {
         dispatch(getWeekWorkouts(workoutsForWeek));
       }); // dispatch to change the days of the week selected
+
+    console.log(currentDate);
   }, [currentDate]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // event handler for calendar click
@@ -71,6 +73,7 @@ const PlannerBodyContainer = props => {
         firstDayOfWeek={firstDayOfWeek()}
         currentDate={currentDate}
         weekWorkouts={selectedWeekWorkouts}
+        dateJsFormatter={dateJsFormatter}
       />
     </div>
   );
