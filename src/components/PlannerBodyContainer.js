@@ -3,6 +3,7 @@ import { api } from "../services/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getWeekWorkouts } from "../redux/actionList";
 import Calendar from "react-calendar";
+import WeekGrid from './WeekGrid'
 
 // Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
@@ -47,14 +48,21 @@ const PlannerBodyContainer = props => {
       .then(workoutsForWeek => {
         dispatch(getWeekWorkouts(workoutsForWeek));
       }); // dispatch to change the days of the week selected
-  }); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
-
-  // mapping method that generates our DayCards goes here
+  }, [currentDate]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // event handler for calendar click
   const handleCalendarClick = dateSelected => {
     setCurrentDate(dateJsFormatter(dateSelected)); // set the current date
   };
+
+  // gets the first day of the week
+  const firstDayOfWeek = () => {
+    const today = new Date(currentDate.year, currentDate.month - 1, currentDate.day);
+    const dayOfTheWeek = today.getDay();
+
+    today.setDate(today.getDate() - dayOfTheWeek);
+    return (today);
+  }
 
   return (
     <div>
@@ -65,6 +73,7 @@ const PlannerBodyContainer = props => {
         }
         calendarType="US"
       />
+      <WeekGrid firstDayOfWeek={firstDayOfWeek()} currentDate={currentDate} weekWorkouts={selectedWeekWorkouts}/>
     </div>
   );
 };

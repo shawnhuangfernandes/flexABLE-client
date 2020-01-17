@@ -1,5 +1,4 @@
 import { authReducer } from "./auth/authReducer";
-import { calendarReducer } from "./calendar/calendarReducer";
 import { combineReducers } from "redux";
 import { workoutReducer } from "./workout/workoutReducer";
 import { exerciseReducer } from "./exercise/exerciseReducer";
