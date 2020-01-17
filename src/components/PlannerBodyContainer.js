@@ -7,7 +7,7 @@ import Calendar from "react-calendar";
 // Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
   // redux state
-  let selectedWeekWorkouts = useSelector(
+  let weekWorkouts = useSelector(
     state => state.workoutReducer.selectedWeekWorkouts
   );
 
@@ -23,8 +23,8 @@ const PlannerBodyContainer = props => {
     };
   };
 
-   // local state
-   const [currentDate, setCurrentDate] = useState(dateJsFormatter(new Date()));
+  // local state
+  const [currentDate, setCurrentDate] = useState(dateJsFormatter(new Date()));
 
   // calendar date formatter (for incoming api dates) goes here
   const dateRbFormatter = rbDate => {
@@ -46,10 +46,14 @@ const PlannerBodyContainer = props => {
       })
       .then(workoutsForWeek => {
         dispatch(getWeekWorkouts(workoutsForWeek));
-      }); // dispatch to change the days of the week selected
+      })
   }); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
-  // mapping method that generates our DayCards goes here
+  // mapping method that generates our DayCards from week workouts
+  const mapToDayCards = () => {
+    console.log(weekWorkouts)
+    return null
+  };
 
   // event handler for calendar click
   const handleCalendarClick = dateSelected => {
@@ -65,6 +69,7 @@ const PlannerBodyContainer = props => {
         }
         calendarType="US"
       />
+      {mapToDayCards()}
     </div>
   );
 };
