@@ -1,9 +1,10 @@
 import React from "react";
+import DayCard from "./DayCard";
 
 const WeekGrid = props => {
   //   console.log(props.currentDate);
   //   console.log(props.firstDayOfWeek);
-  console.log(props.weekWorkouts);
+  //   console.log(props.weekWorkouts);
 
   // an array that holds the week names in order that they will
   const weekNames = [
@@ -18,17 +19,21 @@ const WeekGrid = props => {
 
   // method that creates Day Cards from week Workouts
   const createDayCards = () => {
-    let i = 0;
     if (Object.keys(props.weekWorkouts).length !== 0) {
       return props.weekWorkouts.map((day, index) => {
-        // console.log(props.dateJsFormatter(props.firstDayOfWeek)); // I will pass the 'normalized' date to the card component
-        // console.log(weekNames[i]); // I will pass the name of the week to the card component
-        // console.log(props.weekWorkouts[i]); // I will pass the workouts for the specific day of the week to the component
-        i++;
-        return null;
+        const dateCopy = props.dateJsFormatter(props.firstDayOfWeek)
+        props.firstDayOfWeek.setDate(props.firstDayOfWeek.getDate() + 1);
+        return (
+          <DayCard
+            key={Math.random()}
+            currentDate={dateCopy}
+            name={weekNames[index]}
+            workouts={props.weekWorkouts[index]}
+          />
+        );
       });
     } else {
-        return null;
+      return null;
     }
   };
 

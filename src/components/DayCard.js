@@ -8,4 +8,4 @@ const DayCard = () => {
   );
 };
 
-export default WorkoutCard;
+export default DayCard;

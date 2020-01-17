@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useSelector, useDispatch } from "react-redux";
-import { getWeekWorkouts } from "../redux/actionList";
+import { getWeekWorkouts, signIn } from "../redux/actionList";
 import Calendar from "react-calendar";
 import WeekGrid from "./WeekGrid";
 
@@ -24,6 +24,8 @@ const PlannerBodyContainer = props => {
     state => state.workoutReducer.selectedWeekWorkouts
   );
 
+  const user = useSelector(state => state.authReducer.user);
+
   // dispatch
   const dispatch = useDispatch();
 
@@ -32,12 +34,12 @@ const PlannerBodyContainer = props => {
     // api service to get the current users workouts grouped by day
     api.workouts
       .getCurrentWeekWorkouts({
-        user_id: props.user.id,
+        user_id: user.id,
         date: currentDate
       })
       .then(workoutsForWeek => {
-        dispatch(getWeekWorkouts(workoutsForWeek));
-      }); // dispatch to change the days of the week selected
+        dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
+      });
   }, [currentDate]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // event handler for calendar click

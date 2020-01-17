@@ -66,15 +66,15 @@ export default function DashboardBody(props) {
   const getDashboardContentComponent = props => {
     switch (props.selection) {
       case "statistics":
-        return <StatisticsBodyContainer user={user}/>;
+        return <StatisticsBodyContainer/>;
       case "planner":
-        return <PlannerBodyContainer user={user}/>;
+        return <PlannerBodyContainer/>;
       case "learning-center":
-        return <LearningCenterBodyContainer user={user}/>;
+        return <LearningCenterBodyContainer/>;
       case "settings":
-        return <SettingsBodyContainer user={user}/>;
+        return <SettingsBodyContainer />;
       default:
-        return <StatisticsBodyContainer user={user}/>;
+        return <StatisticsBodyContainer />;
     }
   };
 
