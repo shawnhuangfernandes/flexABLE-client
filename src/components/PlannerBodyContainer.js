@@ -3,18 +3,10 @@ import { api } from "../services/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getWeekWorkouts } from "../redux/actionList";
 import Calendar from "react-calendar";
-import WeekGrid from './WeekGrid'
+import WeekGrid from "./WeekGrid";
 
 // Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
-  // redux state
-  let selectedWeekWorkouts = useSelector(
-    state => state.workoutReducer.selectedWeekWorkouts
-  );
-
-  // dispatch
-  const dispatch = useDispatch();
-
   // calendar date formatter (for incoming JS Dates) goes here
   const dateJsFormatter = jsDate => {
     return {
@@ -24,18 +16,16 @@ const PlannerBodyContainer = props => {
     };
   };
 
-   // local state
-   const [currentDate, setCurrentDate] = useState(dateJsFormatter(new Date()));
+  // local state
+  const [currentDate, setCurrentDate] = useState(dateJsFormatter(new Date()));
 
-  // calendar date formatter (for incoming api dates) goes here
-  const dateRbFormatter = rbDate => {
-    const arr = rbDate.split("-"); // split the string date (e.g "2020-04-06") by dashes
-    return {
-      year: parseInt(arr[0]),
-      month: parseInt(arr[1]),
-      Day: parseInt(arr[2])
-    };
-  };
+  // redux state
+  let selectedWeekWorkouts = useSelector(
+    state => state.workoutReducer.selectedWeekWorkouts
+  );
+
+  // dispatch
+  const dispatch = useDispatch();
 
   // this method handles what happens when state changes (or when a re-render occurs)
   useEffect(() => {
@@ -57,12 +47,16 @@ const PlannerBodyContainer = props => {
 
   // gets the first day of the week
   const firstDayOfWeek = () => {
-    const today = new Date(currentDate.year, currentDate.month - 1, currentDate.day);
+    const today = new Date(
+      currentDate.year,
+      currentDate.month - 1,
+      currentDate.day
+    );
     const dayOfTheWeek = today.getDay();
 
     today.setDate(today.getDate() - dayOfTheWeek);
-    return (today);
-  }
+    return today;
+  };
 
   return (
     <div>
@@ -73,7 +67,11 @@ const PlannerBodyContainer = props => {
         }
         calendarType="US"
       />
-      <WeekGrid firstDayOfWeek={firstDayOfWeek()} currentDate={currentDate} weekWorkouts={selectedWeekWorkouts}/>
+      <WeekGrid
+        firstDayOfWeek={firstDayOfWeek()}
+        currentDate={currentDate}
+        weekWorkouts={selectedWeekWorkouts}
+      />
     </div>
   );
 };
