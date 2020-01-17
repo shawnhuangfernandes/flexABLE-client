@@ -1,11 +1,11 @@
 import React from "react";
 
 const WeekGrid = props => {
-//   console.log(props.currentDate);
-//   console.log(props.firstDayOfWeek);
+  //   console.log(props.currentDate);
+  //   console.log(props.firstDayOfWeek);
   console.log(props.weekWorkouts);
 
-// an array that holds the week names in order that they will
+  // an array that holds the week names in order that they will
   const weekNames = [
     "Sunday",
     "Monday",
@@ -18,15 +18,20 @@ const WeekGrid = props => {
 
   // method that creates Day Cards from week Workouts
   const createDayCards = () => {
-    for (let i = 0; i < 7; i++) {
-      console.log(props.dateJsFormatter(props.firstDayOfWeek)); // I will pass the 'normalized' date to the card component
-      console.log(weekNames[i]); // I will pass the name of the week to the card component
-      console.log(props.weekWorkouts[i]) // I will pass the workouts for the specific day of the week to the component
-      props.firstDayOfWeek.setDate(props.firstDayOfWeek.getDate() + 1);
+    let i = 0;
+    if (Object.keys(props.weekWorkouts).length !== 0) {
+      return props.weekWorkouts.map((day, index) => {
+        // console.log(props.dateJsFormatter(props.firstDayOfWeek)); // I will pass the 'normalized' date to the card component
+        // console.log(weekNames[i]); // I will pass the name of the week to the card component
+        // console.log(props.weekWorkouts[i]); // I will pass the workouts for the specific day of the week to the component
+        i++;
+        return null;
+      });
+    } else {
+        return null;
     }
-
-    return null;
   };
+
   return <div>{createDayCards()}</div>;
 };
 

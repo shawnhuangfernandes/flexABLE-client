@@ -2,7 +2,7 @@ import { GET_WORKOUTS } from "./workoutTypes";
 
 // set initial state for the selected date
 const initialState = {
-  selectedWeekWorkouts: {}
+  selectedWeekWorkouts: [[],[],[],[],[],[],[]]
 };
 
 // calendar reducer that handles redux state when calendar dates are chosen
