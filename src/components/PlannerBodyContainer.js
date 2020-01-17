@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../services/api'
 import { useSelector } from 'react-redux'
 import { setCurrentDate } from '../redux/actionList';
+import Calendar from 'react-calendar'
+
+// Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
 
   // redux state
@@ -22,6 +25,7 @@ const PlannerBodyContainer = props => {
   
   // this method 
   useEffect(() => {
+  console.log(currentDate);
     // api service to get the current users workouts grouped by day
   api.workouts.getCurrentWeekWorkouts(
     {
@@ -41,11 +45,17 @@ const PlannerBodyContainer = props => {
   // mapping method that generates our DayCards goes here
 
 
+  // event handler for calendar click
+  const handleCalendarClick = (date) => {
+    setCurrentDate(dateJsFormatter(date));
+  }
 
-  
   return (
     <div>
-      
+      <Calendar
+          onChange={handleCalendarClick}
+          value={new Date(currentDate.year, currentDate.month - 1, currentDate.day)}
+        />
     </div>
   );
 };
