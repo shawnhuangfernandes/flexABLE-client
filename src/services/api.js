@@ -34,16 +34,6 @@ const getCurrentUser = () => {
   });
 };
 
-const getCurrentWeekWorkouts = workoutInfo => {
-  return fetch(`${API_ROOT}/week_workout`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(workoutInfo)
-  }).then(weekWorkoutData => {
-    return weekWorkoutData.json();
-  });
-};
-
 const createNewWorkout = workoutInfo => {
   return fetch(`${API_ROOT}/workouts`, {
     method: "POST",
@@ -73,6 +63,14 @@ const updateWorkout = workoutInfo => {
   });
 };
 
+const getWorkouts = (user) => {
+  return fetch(`${API_ROOT}/users/${user.id}/workouts`, {
+    headers
+  }).then(workoutsData => {
+    return workoutsData.json();
+  });
+};
+
 const getAllExercises = () => {
     return fetch(`${API_ROOT}/exercises`, {
       headers
@@ -89,7 +87,7 @@ export const api = {
     getCurrentUser
   },
   workouts: {
-    getCurrentWeekWorkouts,
+    getWorkouts,
     updateWorkout,
     createNewWorkout,
     deleteWorkout

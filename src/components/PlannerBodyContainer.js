@@ -33,19 +33,50 @@ const PlannerBodyContainer = props => {
   // this method handles what happens when state changes (or when a re-render occurs)
   useEffect(() => {
     // api service to get the current users workouts grouped by day
-    api.workouts
-      .getCurrentWeekWorkouts({
-        user_id: user.id,
-        date: currentDate
-      })
-      .then(workoutsForWeek => {
-        dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
-      });
+    api.workouts.getWorkouts(user).then(allWorkouts => {
+      const workoutsForWeek = getWorkoutsForWeek(allWorkouts);
+      dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
+    });
   }, [currentDate, user, dispatch]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // event handler for calendar click
   const handleCalendarClick = dateSelected => {
     setCurrentDate(dateJsFormatter(dateSelected)); // set the current date
+  };
+
+  const getWorkoutsForWeek = workoutList => {
+    const weekWorkouts = new Array([], [], [], [], [], [], []);
+    const jsCurrentDate = simpleDateFormatter(currentDate);
+    const dayOfTheWeek = jsCurrentDate.getDay();
+    jsCurrentDate.setDate(jsCurrentDate.getDate() - dayOfTheWeek);
+
+    const workoutWeekInfo = weekWorkouts.map(workouts => {
+      const filteredWorkouts = workoutList.filter(workout => {
+        const workoutDate = dateRbFormatter(workout.workout_date);
+        return (
+          workoutDate.getDate() === jsCurrentDate.getDate() &&
+          workoutDate.getMonth() === jsCurrentDate.getMonth() &&
+          workoutDate.getFullYear() === jsCurrentDate.getFullYear()
+        );
+      });
+      jsCurrentDate.setDate(jsCurrentDate.getDate() + 1);
+      return filteredWorkouts;
+    });
+    
+    return workoutWeekInfo;
+    // return the map through the 7 element array
+    // return the filter the workoutList and search for workouts with matching day, month, year
+  };
+
+  // calendar date formatter (for incoming api dates) goes here
+  const dateRbFormatter = rbDate => {
+    const arr = rbDate.split("-"); // split the string date (e.g "2020-04-06") by dashes
+    return new Date(parseInt(arr[0]), parseInt(arr[1]) - 1, parseInt(arr[2]));
+  };
+
+  // calendar date formatter (for incoming JS Dates) goes here
+  const simpleDateFormatter = simpleDate => {
+    return new Date(simpleDate.year, simpleDate.month - 1, simpleDate.day);
   };
 
   // gets the first day of the week
@@ -70,12 +101,12 @@ const PlannerBodyContainer = props => {
         }
         calendarType="US"
       />
-      <WeekGrid
+      {/* <WeekGrid
         firstDayOfWeek={firstDayOfWeek()}
         currentDate={currentDate}
         weekWorkouts={selectedWeekWorkouts}
         dateJsFormatter={dateJsFormatter}
-      />
+      /> */}
     </div>
   );
 };
