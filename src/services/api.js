@@ -44,8 +44,8 @@ const createNewWorkout = workoutInfo => {
   });
 };
 
-const deleteWorkout = workoutId => {
-  return fetch(`${API_ROOT}/workouts/${workoutId}`, {
+const deleteWorkout = workout => {
+  return fetch(`${API_ROOT}/users/${workout.user_id}/workouts/${workout.id}`, {
     method: "DELETE",
     headers,
   }).then(deleteResponse => {
