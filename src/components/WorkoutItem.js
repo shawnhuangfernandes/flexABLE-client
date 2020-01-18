@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { api } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeekWorkouts } from "../redux/actionList";
@@ -8,13 +8,15 @@ const WorkoutItem = props => {
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
+    const [description, setDescription] = useState(props.workout.description)
+
   // this method returns the new version of the week after a specific workout has been updated
   const updateWorkoutList = updatedWorkout => {
     // map through the week, and find the day which the updated workout resides, and update the entry
     const updatedWeek = week.map(day => {
-        return day.map(workout => {
-          return workout.id !== updatedWorkout.id ? workout : updatedWorkout;
-        });
+      return day.map(workout => {
+        return workout.id !== updatedWorkout.id ? workout : updatedWorkout;
+      });
     });
 
     return updatedWeek;
@@ -24,9 +26,9 @@ const WorkoutItem = props => {
   const deleteWorkout = workoutToDelete => {
     // map through the week, and find the day which the updated workout resides, and update the entry
     const updatedWeek = week.map(day => {
-        return day.filter(workout => {
-          return workout.id !== workoutToDelete.id;
-        });
+      return day.filter(workout => {
+        return workout.id !== workoutToDelete.id;
+      });
     });
 
     console.log(updatedWeek);
@@ -46,17 +48,36 @@ const WorkoutItem = props => {
       );
   };
 
+  const onUpdateDescription = e => {
+    e.preventDefault();     
+    e.persist();
+    console.dir(e.target['description'].value);
+  }
+
   const onDeleteWorkout = e => {
     api.workouts.deleteWorkout(props.workout).then(message => {
       dispatch(getWeekWorkouts(deleteWorkout(props.workout)));
     });
   };
 
+  const onDescriptionChange = e => {
+    e.preventDefault();
+    e.persist();
+    setDescription(e.target.value)
+    console.log(description);
+  }
+
   return (
     <div>
       <p>{props.workout.exercise.name}</p>
-      <p>{props.workout.completed ? "Completed" : "Incomplete"}</p>
-      <button onClick={onToggleCompletion}>Complete?</button>
+      <form onSubmit={onUpdateDescription}>
+        <label>
+          Description:
+          <input id='description' type="text" name="name" value={description} onChange={onDescriptionChange}/>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      <button onClick={onToggleCompletion}>{props.workout.completed ? "Completed" : "Incomplete"}</button>
       <button onClick={onDeleteWorkout}>Delete?</button>
     </div>
   );
