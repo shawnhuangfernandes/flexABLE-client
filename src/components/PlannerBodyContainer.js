@@ -62,7 +62,7 @@ const PlannerBodyContainer = props => {
       jsCurrentDate.setDate(jsCurrentDate.getDate() + 1);
       return filteredWorkouts;
     });
-    
+
     return workoutWeekInfo;
     // return the map through the 7 element array
     // return the filter the workoutList and search for workouts with matching day, month, year
@@ -101,12 +101,12 @@ const PlannerBodyContainer = props => {
         }
         calendarType="US"
       />
-      {/* <WeekGrid
+      <WeekGrid
         firstDayOfWeek={firstDayOfWeek()}
         currentDate={currentDate}
         weekWorkouts={selectedWeekWorkouts}
         dateJsFormatter={dateJsFormatter}
-      /> */}
+      />
     </div>
   );
 };
