@@ -54,7 +54,7 @@ const deleteWorkout = workoutId => {
 };
 
 const updateWorkout = workoutInfo => {
-  return fetch(`${API_ROOT}/workouts/${workoutInfo.id}`, {
+  return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts/${workoutInfo.id}`, {
     method: "PATCH",
     headers,
     body: JSON.stringify(workoutInfo)
