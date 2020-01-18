@@ -1,6 +1,9 @@
 import React from 'react';
 
-const WorkoutItem = () => {
+const WorkoutItem = props => {
+
+    console.log(props);
+    
     return (
         <div>
             

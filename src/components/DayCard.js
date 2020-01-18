@@ -1,18 +1,12 @@
 import React from 'react';
+import WorkoutItem from './WorkoutItem'
 
 const DayCard = props => {
 
-  // currentDate={dateCopy}
-  // name={weekNames[index]}
-//  console.log(props.workouts);
-
 const createWorkoutItems = () => {
-  props.workouts.map(workout => {
-    console.log(workout);
-    return workout
+  return props.workouts.map(workout => {
+    return <WorkoutItem workout={workout} key={Math.random()}/>
   })
-
-  return null
 }
 
   return (
