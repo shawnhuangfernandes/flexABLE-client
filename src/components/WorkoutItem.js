@@ -1,6 +1,7 @@
 import React from 'react';
 import { api } from '../services/api'
 import { useDispatch, useSelector } from 'react-redux'
+import { getWeekWorkouts } from "../redux/actionList";
 
 // This is the workout item that displays a specific workout with a delete button, description, and complete button
 const WorkoutItem = props => {
@@ -35,7 +36,7 @@ const WorkoutItem = props => {
             completed: !props.workout.completed
         })
         .then(updatedWorkout => 
-            updateWorkoutList(updatedWorkout) // dispatch the UPDATED WORKOUT LIST
+            dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
         )
     }
 
