@@ -14,7 +14,7 @@ const createWorkoutItems = () => {
   return (
     <div>
       <p>{props.name}</p>
-      <p>{props.currentDate.day} - {props.currentDate.month}</p>
+      <p>{props.currentDate.month} - {props.currentDate.day}</p>
       {createWorkoutItems()}
       <NewExerciseSelector currentDate={props.currentDate}/>
     </div>

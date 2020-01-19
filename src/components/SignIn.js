@@ -68,7 +68,7 @@ const SignIn = props => {
           // if the returned userData DID NOT have a login error
           localStorage.setItem("token", userData.jwt); // assign the local storage token of the logged in user as the user's JWT encrypted token
           dispatch(signIn(userData));
-          props.history.push("dashboard/statistics");
+          props.history.push("dashboard/planner");
         } else {
           console.log("Got an error here");
         }

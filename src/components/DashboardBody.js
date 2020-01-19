@@ -19,7 +19,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import StatisticsBodyContainer from "./StatisticsBodyContainer";
 import PlannerBodyContainer from "./PlannerBodyContainer";
 import LearningCenterBodyContainer from "./LearningCenterBodyContainer";
 import SettingsBodyContainer from "./SettingsBodyContainer";
@@ -63,8 +62,6 @@ export default function DashboardBody(props) {
   // determines what dashboard content to render based on the selection props picked by the Dashboard Container parent
   const getDashboardContentComponent = props => {
     switch (props.selection) {
-      case "statistics":
-        return <StatisticsBodyContainer />;
       case "planner":
         return <PlannerBodyContainer/>;
       case "learning-center":
@@ -72,13 +69,12 @@ export default function DashboardBody(props) {
       case "settings":
         return <SettingsBodyContainer />;
       default:
-        return <StatisticsBodyContainer />;
+        return <PlannerBodyContainer />;
     }
   };
 
   // 3 item array containing all the icons, names, and routes of each sidebar option ABOVE the divider
   const upperSideBarOptions = [
-    [<ShowChartIcon />, "Statistics", "statistics"],
     [<EventNoteIcon />, "Planner", "planner"],
     [<SettingsIcon />, "Settings", "settings"],
     [<FitnessCenterIcon />, "Learning Center", "learning-center"]

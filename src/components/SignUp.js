@@ -88,7 +88,7 @@ const SignIn = props => {
       .then(userData => {
         if (!userData.error) {
           dispatch(signIn(userData));
-          props.history.push("/dashboard/statistics");
+          props.history.push("/dashboard/planner");
         } else {
           console.log("Got an error here");
         }
