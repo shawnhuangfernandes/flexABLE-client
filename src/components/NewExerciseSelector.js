@@ -4,14 +4,14 @@ import { api } from "../services/api";
 import { getWeekWorkouts } from "../redux/actionList";
 
 const NewExerciseSelector = props => {
-  const user = useSelector(state => state.authReducer.user);
-  const exercises = useSelector(state => state.exerciseReducer.exercises);
+  const user = useSelector(state => state.authReducer.user); // redux state to grab logged in user
+  const exercises = useSelector(state => state.exerciseReducer.exercises); // redux state to grab exercises for drop down
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
-  const [exerciseId, setExerciseId] = useState(1);
+  const [exerciseId, setExerciseId] = useState(1); // local state for exercise id from drop down selection
   const [description, setDescription] = useState(""); // local state for description on text field
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // dispatch for updating redux state
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
@@ -19,6 +19,7 @@ const NewExerciseSelector = props => {
     setDescription(e.target.value);
   };
 
+  // EVENT HANDLER: when form is submitted to create a new workout
   const onCreateWorkout = e => {
     e.preventDefault();
 
@@ -35,16 +36,18 @@ const NewExerciseSelector = props => {
     };
 
     api.workouts.createNewWorkout(workoutInfo).then(workout => {
-      dispatch(getWeekWorkouts(addNewExercise(workout)));
+      dispatch(getWeekWorkouts(addNewWorkout(workout)));
     });
   };
 
+  // EVENT HANDLER: when a drop down option is selected
   const onSelectExercise = e => {
     e.persist();
     setExerciseId(e.target.value);
   };
 
-  const addNewExercise = workout => {
+  // this method updates the current redux state by adding a new workout to the appropriate day of the week
+  const addNewWorkout = workout => {
     const dayOfTheWeek = dateRbFormatter(workout.workout_date).getDay();
     const returnedCopy = [...week];
     returnedCopy[dayOfTheWeek].push(workout);
@@ -57,6 +60,7 @@ const NewExerciseSelector = props => {
     return new Date(parseInt(arr[0]), parseInt(arr[1]) - 1, parseInt(arr[2]));
   };
 
+  // this maps the exercises to options for the drop down
   const getExerciseOptions = () => {
     return (
       <select onChange={onSelectExercise} value={exerciseId}>

@@ -47,23 +47,26 @@ const createNewWorkout = workoutInfo => {
 const deleteWorkout = workout => {
   return fetch(`${API_ROOT}/users/${workout.user_id}/workouts/${workout.id}`, {
     method: "DELETE",
-    headers,
+    headers
   }).then(deleteResponse => {
     return deleteResponse.json();
   });
 };
 
 const updateWorkout = workoutInfo => {
-  return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts/${workoutInfo.id}`, {
-    method: "PATCH",
-    headers,
-    body: JSON.stringify(workoutInfo)
-  }).then(updatedWorkoutInfo => {
+  return fetch(
+    `${API_ROOT}/users/${workoutInfo.user_id}/workouts/${workoutInfo.id}`,
+    {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify(workoutInfo)
+    }
+  ).then(updatedWorkoutInfo => {
     return updatedWorkoutInfo.json();
   });
 };
 
-const getWorkouts = (user) => {
+const getWorkouts = user => {
   return fetch(`${API_ROOT}/users/${user.id}/workouts`, {
     headers
   }).then(workoutsData => {
@@ -72,12 +75,12 @@ const getWorkouts = (user) => {
 };
 
 const getAllExercises = () => {
-    return fetch(`${API_ROOT}/exercises`, {
-      headers
-    }).then(userData => {
-      return userData.json();
-    });
-}
+  return fetch(`${API_ROOT}/exercises`, {
+    headers
+  }).then(userData => {
+    return userData.json();
+  });
+};
 
 // export all the api service methods for use in other files
 export const api = {
