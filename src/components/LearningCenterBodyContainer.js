@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useSelector } from "react-redux";
-import ExerciseCategoryContainer from './ExerciseCategoryContainer'
+import ExerciseCategoryContainer from "./ExerciseCategoryContainer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,28 +90,38 @@ export default function LearningCenterBodyContainer() {
         <ExerciseCategoryContainer exercises={getExercisesByCategory("Arms")} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <ExerciseCategoryContainer
+          exercises={getExercisesByCategory("Chest")}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <ExerciseCategoryContainer exercises={getExercisesByCategory("Legs")} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        <ExerciseCategoryContainer exercises={getExercisesByCategory("Back")} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item Five
+        <ExerciseCategoryContainer
+          exercises={getExercisesByCategory("Shoulders")}
+        />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Item Six
+        <ExerciseCategoryContainer exercises={getExercisesByCategory("Hips")} />
       </TabPanel>
       <TabPanel value={value} index={6}>
-        Item Seven
+        <ExerciseCategoryContainer
+          exercises={getExercisesByCategory("Cardio")}
+        />
       </TabPanel>
       <TabPanel value={value} index={7}>
-        Item Eight
+        <ExerciseCategoryContainer
+          exercises={getExercisesByCategory("Compound")}
+        />
       </TabPanel>
       <TabPanel value={value} index={8}>
-        <ExerciseCategoryContainer exercises={getExercisesByCategory("Activity")} />
+        <ExerciseCategoryContainer
+          exercises={getExercisesByCategory("Activity")}
+        />
       </TabPanel>
     </div>
   );

@@ -78,7 +78,7 @@ export default function DashboardBody(props) {
 
   // 3 item array containing all the icons, names, and routes of each sidebar option ABOVE the divider
   const upperSideBarOptions = [
-    [<ShowChartIcon />, "Settings", "statistics"],
+    [<ShowChartIcon />, "Statistics", "statistics"],
     [<EventNoteIcon />, "Planner", "planner"],
     [<SettingsIcon />, "Settings", "settings"],
     [<FitnessCenterIcon />, "Learning Center", "learning-center"]
