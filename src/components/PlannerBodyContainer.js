@@ -44,6 +44,7 @@ const PlannerBodyContainer = props => {
     setCurrentDate(dateJsFormatter(dateSelected)); // set the current date
   };
 
+  // gets the workouts for the week
   const getWorkoutsForWeek = workoutList => {
     const weekWorkouts = new Array([], [], [], [], [], [], []);
     const jsCurrentDate = simpleDateFormatter(currentDate);
@@ -64,8 +65,6 @@ const PlannerBodyContainer = props => {
     });
 
     return workoutWeekInfo;
-    // return the map through the 7 element array
-    // return the filter the workoutList and search for workouts with matching day, month, year
   };
 
   // calendar date formatter (for incoming api dates) goes here

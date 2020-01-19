@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
@@ -64,7 +64,7 @@ export default function DashboardBody(props) {
   const getDashboardContentComponent = props => {
     switch (props.selection) {
       case "statistics":
-        return <StatisticsBodyContainer/>;
+        return <StatisticsBodyContainer />;
       case "planner":
         return <PlannerBodyContainer/>;
       case "learning-center":

@@ -26,6 +26,16 @@ const signUp = data => {
   }).then(userData => userData.json());
 };
 
+// METHOD: api request to delete a user
+const deleteUser = user => {
+  return fetch(`${API_ROOT}/users/${user.id}`, {
+    method: "DELETE",
+    headers
+  }).then(deleteResponse => {
+    return deleteResponse.json();
+  });
+};
+
 const getCurrentUser = () => {
   return fetch(`${API_ROOT}/user_is_authed`, {
     headers
@@ -87,7 +97,8 @@ export const api = {
   auth: {
     signUp,
     login,
-    getCurrentUser
+    getCurrentUser,
+    deleteUser
   },
   workouts: {
     getWorkouts,
