@@ -9,7 +9,8 @@ const WorkoutItem = props => {
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
   const [description, setDescription] = useState(props.workout.description); // local state for description on text field
-
+  console.log(description);
+  
   // this method returns the new version of the week after a specific workout has been updated
   const updateWorkoutList = updatedWorkout => {
     // map through the week, and find the day which the updated workout resides, and update the entry
