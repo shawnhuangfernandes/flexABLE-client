@@ -14,7 +14,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import EventNoteIcon from "@material-ui/icons/EventNote";
-import ShowChartIcon from "@material-ui/icons/ShowChart";
 import SettingsIcon from "@material-ui/icons/Settings";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import FeedbackIcon from "@material-ui/icons/Feedback";

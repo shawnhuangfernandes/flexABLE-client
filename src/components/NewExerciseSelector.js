@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
-import { getWeekWorkouts } from "../redux/actionList";
+import { getWeekWorkouts, setExerciseList } from "../redux/actionList";
 
 const NewExerciseSelector = props => {
   const user = useSelector(state => state.authReducer.user); // redux state to grab logged in user
@@ -12,6 +12,12 @@ const NewExerciseSelector = props => {
   const [description, setDescription] = useState(""); // local state for description on text field
 
   const dispatch = useDispatch(); // dispatch for updating redux state
+
+  useEffect(() => {
+    api.exercises
+    .getAllExercises()
+    .then(exercises => dispatch(setExerciseList(exercises)));
+  }, [user])
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {

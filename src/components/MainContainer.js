@@ -19,10 +19,6 @@ const MainContainer = props => {
       api.auth.getCurrentUser().then(user => {
         dispatch(signIn(user));
       });
-
-      api.exercises
-        .getAllExercises()
-        .then(exercises => dispatch(setExerciseList(exercises)));
     }
     // eslint-disable-next-line
   }, []);
