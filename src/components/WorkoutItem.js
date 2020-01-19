@@ -51,7 +51,16 @@ const WorkoutItem = props => {
   const onUpdateDescription = e => {
     e.preventDefault();     
     e.persist();
-    console.dir(e.target['description'].value);
+
+    api.workouts
+      .updateWorkout({
+        ...props.workout,
+        description: description
+      })
+      .then(
+        updatedWorkout =>
+          dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
+      );
   }
 
   const onDeleteWorkout = e => {
@@ -64,7 +73,6 @@ const WorkoutItem = props => {
     e.preventDefault();
     e.persist();
     setDescription(e.target.value)
-    console.log(description);
   }
 
   return (
