@@ -5,10 +5,7 @@ const ExerciseCard = props => {
     return (
         <div>
             {props.exercise.name}
-            <br></br>
             {props.exercise.description}
-            <br></br>
-            <br></br>
         </div>
     );
 };

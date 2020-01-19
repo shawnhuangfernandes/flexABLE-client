@@ -46,7 +46,6 @@ const SettingsBodyContainer = props => {
             onChange={onFirstNameChange}
           />
         </label>
-        <br></br>
         <label>
           Last Name:
           <input
@@ -56,7 +55,6 @@ const SettingsBodyContainer = props => {
             onChange={onLastNameChange}
           />
         </label>
-        <br></br>
         <label>
           Username:
           <input

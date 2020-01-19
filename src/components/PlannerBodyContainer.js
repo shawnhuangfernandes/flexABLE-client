@@ -7,20 +7,29 @@ import Calendar from "react-calendar";
 import WeekGrid from "./WeekGrid";
 
 // MUI imports
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: '100%',
-    paddingBottom: '5%'
+    paddingBottom: '2%',
+    paddingTop: '2%'
+  },
+  calendar: {
+    flexGrow: 1,
+    height: 'auto'
+  },
+  weekGrid: {
+    flexGrow: 1,
+    height: '90%',
   }
 }));
 
 // Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
-  const classes = useStyles(); // use MUI styling local to this component
+  const classes = useStyles();
 
   // calendar date formatter (for incoming JS Dates) goes here
   const dateJsFormatter = jsDate => {
@@ -107,22 +116,25 @@ const PlannerBodyContainer = props => {
   };
 
   return (
-    <div className={classes.root}>
-      
-      <Calendar
-        onChange={handleCalendarClick}
-        value={
-          new Date(currentDate.year, currentDate.month - 1, currentDate.day)
-        }
-        calendarType="US"
-      />
-      <WeekGrid
-        firstDayOfWeek={firstDayOfWeek()}
-        currentDate={currentDate}
-        weekWorkouts={selectedWeekWorkouts}
-        dateJsFormatter={dateJsFormatter}
-      />
-    </div>
+    <Box className={classes.root} display="flex" justifyContent="center" flexDirection="column" >
+      <Box className={classes.calendar}p={1} bgcolor="grey.300" alignSelf="center">
+        <Calendar
+          onChange={handleCalendarClick}
+          value={
+            new Date(currentDate.year, currentDate.month - 1, currentDate.day)
+          }
+          calendarType="US"
+        />
+      </Box>
+      <Box className={classes.weekGrid} p={1} bgcolor="grey.300" alignSelf="center">
+        <WeekGrid
+          firstDayOfWeek={firstDayOfWeek()}
+          currentDate={currentDate}
+          weekWorkouts={selectedWeekWorkouts}
+          dateJsFormatter={dateJsFormatter}
+        />
+      </Box>
+    </Box>
   );
 };
 

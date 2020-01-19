@@ -1,5 +1,9 @@
+// React specific imports
 import React from "react";
 import DayCard from "./DayCard";
+
+// MUI imports
+import Box from "@material-ui/core/Box";
 
 const WeekGrid = props => {
   // an array that holds the week names in order that they will
@@ -33,7 +37,7 @@ const WeekGrid = props => {
     }
   };
 
-  return <div>{createDayCards()}</div>;
+  return <Box display="flex" justifyContent="center" flexDirection="row">{createDayCards()}</Box>;
 };
 
 export default WeekGrid;
