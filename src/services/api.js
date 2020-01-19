@@ -35,7 +35,7 @@ const getCurrentUser = () => {
 };
 
 const createNewWorkout = workoutInfo => {
-  return fetch(`${API_ROOT}/workouts`, {
+  return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts`, {
     method: "POST",
     headers,
     body: JSON.stringify(workoutInfo)

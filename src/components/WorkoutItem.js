@@ -8,7 +8,7 @@ const WorkoutItem = props => {
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
-    const [description, setDescription] = useState(props.workout.description) // local state for description on text field
+  const [description, setDescription] = useState(props.workout.description); // local state for description on text field
 
   // this method returns the new version of the week after a specific workout has been updated
   const updateWorkoutList = updatedWorkout => {
@@ -31,7 +31,6 @@ const WorkoutItem = props => {
       });
     });
 
-    console.log(updatedWeek);
     return updatedWeek;
   };
 
@@ -51,7 +50,7 @@ const WorkoutItem = props => {
 
   // EVENT HANDLER: when description is officially updated
   const onUpdateDescription = e => {
-    e.preventDefault();     
+    e.preventDefault();
     e.persist();
 
     api.workouts
@@ -63,7 +62,7 @@ const WorkoutItem = props => {
         updatedWorkout =>
           dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
       );
-  }
+  };
 
   // EVENT HANDLER: when workout item delete button is clicked
   const onDeleteWorkout = e => {
@@ -74,10 +73,9 @@ const WorkoutItem = props => {
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
-    e.preventDefault();
     e.persist();
-    setDescription(e.target.value)
-  }
+    setDescription(e.target.value);
+  };
 
   return (
     <div>
@@ -85,11 +83,18 @@ const WorkoutItem = props => {
       <form onSubmit={onUpdateDescription}>
         <label>
           Description:
-          <input id='description' type="text" name="name" value={description} onChange={onDescriptionChange}/>
+          <input
+            type="text"
+            name="name"
+            value={description}
+            onChange={onDescriptionChange}
+          />
         </label>
         <input type="submit" value="Submit" />
       </form>
-      <button onClick={onToggleCompletion}>{props.workout.completed ? "Completed" : "Incomplete"}</button>
+      <button onClick={onToggleCompletion}>
+        {props.workout.completed ? "Completed" : "Incomplete"}
+      </button>
       <button onClick={onDeleteWorkout}>Delete?</button>
     </div>
   );

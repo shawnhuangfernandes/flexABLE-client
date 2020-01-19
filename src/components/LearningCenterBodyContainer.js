@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { useSelector } from 'react-redux'
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { useSelector } from "react-redux";
+import ExerciseCategoryContainer from './ExerciseCategoryContainer'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -28,22 +29,22 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`,
+    "aria-controls": `scrollable-auto-tabpanel-${index}`
   };
 }
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    width: '80',
-    backgroundColor: theme.palette.background.paper,
-  },
+    width: "80",
+    backgroundColor: theme.palette.background.paper
+  }
 }));
 
 export default function LearningCenterBodyContainer() {
@@ -54,14 +55,13 @@ export default function LearningCenterBodyContainer() {
 
   const getExercisesByCategory = category => {
     return exercises.filter(exercise => {
-      return exercise.category === category
-    })
-  }
+      return exercise.category === category;
+    });
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-
 
   return (
     <div className={classes.root}>
@@ -82,12 +82,12 @@ export default function LearningCenterBodyContainer() {
           <Tab label="Shoulders" {...a11yProps(4)} />
           <Tab label="Hips" {...a11yProps(5)} />
           <Tab label="Cardio" {...a11yProps(6)} />
-          <Tab label="Compound" {...a11yProps(6)} />
-          <Tab label="Activities" {...a11yProps(6)} />
+          <Tab label="Compound" {...a11yProps(7)} />
+          <Tab label="Activities" {...a11yProps(8)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
+        <ExerciseCategoryContainer exercises={getExercisesByCategory("Arms")} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
@@ -106,6 +106,12 @@ export default function LearningCenterBodyContainer() {
       </TabPanel>
       <TabPanel value={value} index={6}>
         Item Seven
+      </TabPanel>
+      <TabPanel value={value} index={7}>
+        Item Eight
+      </TabPanel>
+      <TabPanel value={value} index={8}>
+        <ExerciseCategoryContainer exercises={getExercisesByCategory("Activity")} />
       </TabPanel>
     </div>
   );

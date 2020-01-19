@@ -1,5 +1,6 @@
 import React from 'react';
 import WorkoutItem from './WorkoutItem'
+import NewExerciseSelector from './NewExerciseSelector'
 
 const DayCard = props => {
 
@@ -14,6 +15,7 @@ const createWorkoutItems = () => {
       <p>{props.name}</p>
       <p>{props.currentDate.day} - {props.currentDate.month}</p>
       {createWorkoutItems()}
+      <NewExerciseSelector currentDate={props.currentDate}/>
     </div>
   );
 };
