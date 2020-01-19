@@ -1,13 +1,17 @@
+// React imports
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import DashboardBody from "./DashboardBody";
+
+// MUI imports
+import { makeStyles } from "@material-ui/core/styles";
+
 
 // set up the styles used in the Dashboard Container
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh"
+    maxHeight: "100%"
   },
   main: {
     marginTop: theme.spacing(8),

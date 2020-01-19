@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   weekGrid: {
     flexGrow: 1,
-    height: '90%',
+    height: '80%',
   }
 }));
 
@@ -117,7 +117,7 @@ const PlannerBodyContainer = props => {
 
   return (
     <Box className={classes.root} display="flex" justifyContent="center" flexDirection="column" >
-      <Box className={classes.calendar}p={1} bgcolor="grey.300" alignSelf="center">
+      <Box className={classes.calendar}p={1} alignSelf="center">
         <Calendar
           onChange={handleCalendarClick}
           value={
@@ -126,7 +126,7 @@ const PlannerBodyContainer = props => {
           calendarType="US"
         />
       </Box>
-      <Box className={classes.weekGrid} p={1} bgcolor="grey.300" alignSelf="center">
+      <Box className={classes.weekGrid} p={1} alignSelf="center">
         <WeekGrid
           firstDayOfWeek={firstDayOfWeek()}
           currentDate={currentDate}
