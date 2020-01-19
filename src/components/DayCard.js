@@ -2,6 +2,7 @@
 import React from "react";
 import WorkoutItem from "./WorkoutItem";
 import NewExerciseSelector from "./NewExerciseSelector";
+import DayHeader from './DayHeader'
 
 // MUI imports
 import Paper from "@material-ui/core/Paper";
@@ -29,12 +30,9 @@ const DayCard = props => {
 
   return (
     <Paper className={classes.root} variant="outlined" >
-      <p>{props.name}</p>
-      <p>
-        {props.currentDate.month} - {props.currentDate.day}
-      </p>
-      {createWorkoutItems()}
+      <DayHeader dayName={`${props.name} (${props.currentDate.month}/${props.currentDate.day})`} />
       <NewExerciseSelector currentDate={props.currentDate} />
+      {createWorkoutItems()}
     </Paper>
   );
 };
