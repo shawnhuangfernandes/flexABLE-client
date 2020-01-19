@@ -8,7 +8,7 @@ const WorkoutItem = props => {
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
-    const [description, setDescription] = useState(props.workout.description)
+    const [description, setDescription] = useState(props.workout.description) // local state for description on text field
 
   // this method returns the new version of the week after a specific workout has been updated
   const updateWorkoutList = updatedWorkout => {
@@ -35,6 +35,7 @@ const WorkoutItem = props => {
     return updatedWeek;
   };
 
+  // EVENT HANDLER: when button for completion is clicked
   const onToggleCompletion = e => {
     // run api service to update the workout with the toggled completion status
     api.workouts
@@ -48,6 +49,7 @@ const WorkoutItem = props => {
       );
   };
 
+  // EVENT HANDLER: when description is officially updated
   const onUpdateDescription = e => {
     e.preventDefault();     
     e.persist();
@@ -63,12 +65,14 @@ const WorkoutItem = props => {
       );
   }
 
+  // EVENT HANDLER: when workout item delete button is clicked
   const onDeleteWorkout = e => {
     api.workouts.deleteWorkout(props.workout).then(message => {
       dispatch(getWeekWorkouts(deleteWorkout(props.workout)));
     });
   };
 
+  // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
     e.preventDefault();
     e.persist();

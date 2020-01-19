@@ -2,7 +2,7 @@ import { GET_EXERCISES } from "./exerciseTypes";
 
 // set initial state for the selected date
 const initialState = {
-  exercises: {}
+  exercises: []
 };
 
 // calendar reducer that handles redux state when calendar dates are chosen
