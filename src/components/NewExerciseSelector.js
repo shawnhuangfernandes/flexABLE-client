@@ -1,9 +1,28 @@
+// React imports
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
 import { getWeekWorkouts, setExerciseList } from "../redux/actionList";
 
+// MUI imports
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120
+  }
+}));
+
 const NewExerciseSelector = props => {
+  const classes = useStyles();
+
   const user = useSelector(state => state.authReducer.user); // redux state to grab logged in user
   const exercises = useSelector(state => state.exerciseReducer.exercises); // redux state to grab exercises for drop down
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
@@ -15,9 +34,9 @@ const NewExerciseSelector = props => {
 
   useEffect(() => {
     api.exercises
-    .getAllExercises()
-    .then(exercises => dispatch(setExerciseList(exercises)));
-  }, [user])
+      .getAllExercises()
+      .then(exercises => dispatch(setExerciseList(exercises)));
+  }, [user, dispatch]);
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
@@ -50,6 +69,7 @@ const NewExerciseSelector = props => {
   const onSelectExercise = e => {
     e.persist();
     setExerciseId(e.target.value);
+    console.log(exerciseId);
   };
 
   // this method updates the current redux state by adding a new workout to the appropriate day of the week
@@ -69,16 +89,43 @@ const NewExerciseSelector = props => {
   // this maps the exercises to options for the drop down
   const getExerciseOptions = () => {
     return (
-      <select onChange={onSelectExercise} value={exerciseId}>
-        {exercises.map(exercise => {
-          return (
-            <option key={Math.random()} value={exercise.id}>
-              {exercise.name}
-            </option>
-          );
-        })}
-      </select>
+      <FormControl className={classes.formControl}>
+        <InputLabel>Add Exercise</InputLabel>
+        <Select onChange={onSelectExercise} defaultValue="" input={<Input/>}>
+          <MenuItem value={0}>
+            <em>None</em>
+          </MenuItem>
+          <ListSubheader>Arms</ListSubheader>
+          {getMenuItems("Arms")}
+          <ListSubheader>Chest</ListSubheader>
+          {getMenuItems("Chest")}
+          <ListSubheader>Legs</ListSubheader>
+          {getMenuItems("Legs")}
+          <ListSubheader>Back</ListSubheader>
+          {getMenuItems("Back")}
+          <ListSubheader>Shoulders</ListSubheader>
+          {getMenuItems("Shoulders")}
+          <ListSubheader>Hips</ListSubheader>
+          {getMenuItems("Hips")}
+          <ListSubheader>Cardio</ListSubheader>
+          {getMenuItems("Cardio")}
+          <ListSubheader>Compound</ListSubheader>
+          {getMenuItems("Compound")}
+          <ListSubheader>Activity</ListSubheader>
+          {getMenuItems("Activity")}
+        </Select>
+      </FormControl>
     );
+  };
+
+  const getMenuItems = category => {
+    return exercises
+      .filter(exercise => {
+        return exercise.category === category;
+      })
+      .map(exercise => {
+        return <MenuItem key={Math.random()} value={exercise.id}>{exercise.name}</MenuItem>;
+      });
   };
 
   return (

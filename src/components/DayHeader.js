@@ -7,7 +7,6 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
 const DayHeader = props => {
-  console.log(props);
 
   return (
     <Box display="flex">
