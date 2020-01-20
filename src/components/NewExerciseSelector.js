@@ -16,7 +16,7 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: '250px'
   }
 }));
 
@@ -69,7 +69,6 @@ const NewExerciseSelector = props => {
   const onSelectExercise = e => {
     e.persist();
     setExerciseId(e.target.value);
-    console.log(exerciseId);
   };
 
   // this method updates the current redux state by adding a new workout to the appropriate day of the week
@@ -91,7 +90,7 @@ const NewExerciseSelector = props => {
     return (
       <FormControl className={classes.formControl}>
         <InputLabel>Add Exercise</InputLabel>
-        <Select onChange={onSelectExercise} defaultValue="" input={<Input/>}>
+        <Select autoWidth onChange={onSelectExercise} defaultValue="" input={<Input/>}>
           <MenuItem value={0}>
             <em>None</em>
           </MenuItem>
