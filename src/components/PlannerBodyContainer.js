@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     height: '100%',
     paddingBottom: '2%',
-    paddingTop: '2%'
+    paddingTop: '6%'
   },
   calendar: {
     flexGrow: 1,
@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   weekGrid: {
     flexGrow: 1,
     height: '80%',
+    width: '100%'
   }
 }));
 

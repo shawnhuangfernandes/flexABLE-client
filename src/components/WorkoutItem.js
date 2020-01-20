@@ -90,7 +90,7 @@ const WorkoutItem = props => {
             onChange={onDescriptionChange}
           />
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Update" />
       </form>
       <button onClick={onToggleCompletion}>
         {props.workout.completed ? "Completed" : "Incomplete"}

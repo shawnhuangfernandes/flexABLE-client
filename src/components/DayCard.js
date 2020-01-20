@@ -2,7 +2,7 @@
 import React from "react";
 import WorkoutItem from "./WorkoutItem";
 import NewExerciseSelector from "./NewExerciseSelector";
-import DayHeader from './DayHeader'
+import DayHeader from "./DayHeader";
 
 // MUI imports
 import Paper from "@material-ui/core/Paper";
@@ -12,9 +12,16 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    padding: '1%',
-    height: '100%',  
-    overflowY: 'scroll'
+    padding: "1%",
+    height: "100%",
+    width: "14%"
+  },
+  paper: {
+    height: "100%",
+    marginTop: '4px',
+    overflow: 'scroll',
+    paddingLeft: '4%'
+
   }
 }));
 
@@ -29,10 +36,12 @@ const DayCard = props => {
   };
 
   return (
-    <Paper className={classes.root} variant="outlined" >
-      <DayHeader dayName={`${props.name} (${props.currentDate.month}/${props.currentDate.day})`} />
+    <Paper className={classes.root} variant="outlined">
+      <DayHeader
+        dayName={`${props.name} (${props.currentDate.month}/${props.currentDate.day})`}
+      />
       <NewExerciseSelector currentDate={props.currentDate} />
-      {createWorkoutItems()}
+      <Paper className={classes.paper}>{createWorkoutItems()}</Paper>
     </Paper>
   );
 };

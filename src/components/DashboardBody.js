@@ -34,10 +34,11 @@ const useStyles = makeStyles(theme => ({ // theming for the components rendered 
   },
   drawer: {
     width: drawerWidth, // set the width of the side bar
-    flexShrink: 0 // this side bar will not shrink AT ALL w/ respect to the other items
+    flexShrink: 0,// this side bar will not shrink AT ALL w/ respect to the other items
   },
   drawerPaper: {
-    width: drawerWidth // set the sidebar paper (the textured color)
+    width: drawerWidth, // set the sidebar paper (the textured color)
+    paddingTop: '3%'
   },
   content: {
     flexGrow: 1, // the content (the stuff to the right of the sidebar) will dynamically grow to an equal size of the other children
@@ -106,7 +107,6 @@ export default function DashboardBody(props) {
           paper: classes.drawerPaper
         }}
       >
-        <div className={classes.toolbar} />
         <List>
           {upperSideBarOptions.map(optionData => (
             <Link href={optionData[2]} color="inherit" key={Math.random()}>
@@ -138,7 +138,6 @@ export default function DashboardBody(props) {
 
       {/* Render the Body Content */}
       <main className={classes.content}>
-        <div className={classes.toolbar} />
         {getDashboardContentComponent(props)}
       </main>
     </div>

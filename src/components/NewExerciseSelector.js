@@ -17,13 +17,13 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import DirectionsIcon from "@material-ui/icons/Directions";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    maxWidth: "93%"
+    maxWidth: "100%",
+    maxHeight: '200px'
   },
   root: {
     display: "flex",
@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
   divider: {
     height: 28,
     margin: 4
+  },
+  inputHolder: {
+    width: '100%'
   }
 }));
 
@@ -162,7 +165,7 @@ const NewExerciseSelector = props => {
 
   return (
     <Paper component="form" className={classes.root}>
-      <Box display="flex" flexDirection="column">
+      <Box className={classes.inputHolder} display="flex" flexDirection="column">
         {getExerciseOptions()}
         <Box display="flex" flexDirection="row">
           <InputBase
@@ -172,8 +175,12 @@ const NewExerciseSelector = props => {
             onChange={onDescriptionChange}
           />
           <Divider className={classes.divider} orientation="vertical" />
-          <IconButton color="primary" className={classes.iconButton} onClick={onCreateWorkout}>
-            <AddBoxIcon  />
+          <IconButton
+            color="primary"
+            className={classes.iconButton}
+            onClick={onCreateWorkout}
+          >
+            <AddBoxIcon />
           </IconButton>
         </Box>
       </Box>
