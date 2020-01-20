@@ -7,16 +7,39 @@ import { getWeekWorkouts, setExerciseList } from "../redux/actionList";
 // MUI imports
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
+import Box from "@material-ui/core/Box";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import DirectionsIcon from "@material-ui/icons/Directions";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: '250px'
+    maxWidth: "93%"
+  },
+  root: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%"
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1
+  },
+  iconButton: {
+    padding: 10
+  },
+  divider: {
+    height: 28,
+    margin: 4
   }
 }));
 
@@ -42,6 +65,7 @@ const NewExerciseSelector = props => {
   const onDescriptionChange = e => {
     e.persist();
     setDescription(e.target.value);
+    console.log(description);
   };
 
   // EVENT HANDLER: when form is submitted to create a new workout
@@ -90,7 +114,12 @@ const NewExerciseSelector = props => {
     return (
       <FormControl className={classes.formControl}>
         <InputLabel>Add Exercise</InputLabel>
-        <Select autoWidth onChange={onSelectExercise} defaultValue="" input={<Input/>}>
+        <Select
+          autoWidth
+          onChange={onSelectExercise}
+          defaultValue=""
+          input={<Input />}
+        >
           <MenuItem value={0}>
             <em>None</em>
           </MenuItem>
@@ -123,23 +152,32 @@ const NewExerciseSelector = props => {
         return exercise.category === category;
       })
       .map(exercise => {
-        return <MenuItem key={Math.random()} value={exercise.id}>{exercise.name}</MenuItem>;
+        return (
+          <MenuItem key={Math.random()} value={exercise.id}>
+            {exercise.name}
+          </MenuItem>
+        );
       });
   };
 
   return (
-    <div>
-      <form onSubmit={onCreateWorkout}>
+    <Paper component="form" className={classes.root}>
+      <Box display="flex" flexDirection="column">
         {getExerciseOptions()}
-        <input
-          type="text"
-          name="name"
-          value={description}
-          onChange={onDescriptionChange}
-        />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+        <Box display="flex" flexDirection="row">
+          <InputBase
+            className={classes.input}
+            placeholder="Workout Details"
+            inputProps={{ "aria-label": "search google maps" }}
+            onChange={onDescriptionChange}
+          />
+          <Divider className={classes.divider} orientation="vertical" />
+          <IconButton color="primary" className={classes.iconButton} onClick={onCreateWorkout}>
+            <AddBoxIcon  />
+          </IconButton>
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 
