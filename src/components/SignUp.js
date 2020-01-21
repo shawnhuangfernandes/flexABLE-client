@@ -1,4 +1,10 @@
+// React specific imports
 import React, { useState } from "react";
+import { api } from "../services/api";
+import { useDispatch } from "react-redux";
+import { signIn } from "../redux/actionList";
+
+// MUI imports
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,15 +13,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { api } from "../services/api";
-import { useDispatch } from "react-redux";
-import { signIn } from "../redux/actionList";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-
-const SignIn = props => {
-  // React hook to use Redux dispatch
-  const dispatch = useDispatch();
 
   // material UI styles
   const useStyles = makeStyles(theme => ({
@@ -37,6 +36,10 @@ const SignIn = props => {
       margin: theme.spacing(3, 0, 2)
     }
   }));
+
+const SignIn = props => {
+  // React hook to use Redux dispatch
+  const dispatch = useDispatch();
 
   // material UI setting for ease of access (reference above)
   const classes = useStyles();

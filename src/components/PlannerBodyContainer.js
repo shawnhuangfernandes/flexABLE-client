@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   weekGrid: {
     flexGrow: 1,
-    height: '80%',
+    minHeight: '80%',
     width: '100%'
   }
 }));
@@ -59,10 +59,11 @@ const PlannerBodyContainer = props => {
   useEffect(() => {
     // api service to get the current users workouts grouped by day
     api.workouts.getWorkouts(user).then(allWorkouts => {
+      console.log(allWorkouts);
       const workoutsForWeek = getWorkoutsForWeek(allWorkouts);
       dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
     });
-  }, [currentDate, user, dispatch, getWeekWorkouts]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
+  }, [currentDate, user, dispatch]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
 
   // event handler for calendar click
   const handleCalendarClick = dateSelected => {
