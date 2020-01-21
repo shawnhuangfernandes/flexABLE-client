@@ -14,8 +14,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: '100%',
-    paddingBottom: '2%',
-    paddingTop: '6%'
+    paddingBottom: '10px',
+    paddingTop: '100px'
   },
   calendar: {
     flexGrow: 1,
@@ -59,7 +59,6 @@ const PlannerBodyContainer = props => {
   useEffect(() => {
     // api service to get the current users workouts grouped by day
     api.workouts.getWorkouts(user).then(allWorkouts => {
-      console.log(allWorkouts);
       const workoutsForWeek = getWorkoutsForWeek(allWorkouts);
       dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
     });

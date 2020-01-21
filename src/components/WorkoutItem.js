@@ -1,12 +1,43 @@
+// React specific imports
 import React, { useState } from "react";
 import { api } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeekWorkouts } from "../redux/actionList";
 
+// MUI imports
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import TextField from "@material-ui/core/TextField";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+const useStyles = makeStyles(theme => ({
+  card: {
+    width: "100%",
+    paddingRight: '4px',
+    marginBottom: '4px',
+  },
+  cardHeader: {
+    padding: '6px',
+    textAlign: 'center'
+  },
+  button: {
+    padding: '0px'
+  },
+  title: {
+    color: 'red',
+    fontSize: 14
+  }
+}));
+
 // This is the workout item that displays a specific workout with a delete button, description, and complete button
 const WorkoutItem = props => {
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
+  const classes = useStyles();
 
   const [description, setDescription] = useState(props.workout.description); // local state for description on text field
 
@@ -53,7 +84,8 @@ const WorkoutItem = props => {
     e.preventDefault();
     e.persist();
 
-    api.workouts
+    if (e.key = "Enter") {
+      api.workouts
       .updateWorkout({
         ...props.workout,
         description: description
@@ -62,6 +94,7 @@ const WorkoutItem = props => {
         updatedWorkout =>
           dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
       );
+    } 
   };
 
   // EVENT HANDLER: when workout item delete button is clicked
@@ -78,25 +111,31 @@ const WorkoutItem = props => {
   };
 
   return (
-    <div>
-      <p>{props.workout.exercise.name}</p>
-      <form onSubmit={onUpdateDescription}>
-        <label>
-          Description:
-          <input
-            type="text"
-            name="name"
-            value={description}
-            onChange={onDescriptionChange}
-          />
-        </label>
-        <input type="submit" value="Update" />
-      </form>
-      <button onClick={onToggleCompletion}>
-        {props.workout.completed ? "Completed" : "Incomplete"}
-      </button>
-      <button onClick={onDeleteWorkout}>Delete?</button>
-    </div>
+    <Card className={classes.card}>
+      <CardHeader
+      classes={{
+        title: classes.title,
+      }}
+      className={classes.cardHeader}
+        action={
+          <IconButton onClick={onDeleteWorkout}>
+          <DeleteForeverIcon className={classes.button} fontSize="large" />
+          </IconButton>
+        }
+        title={props.workout.exercise.name}
+      />
+      <CardContent>
+      <TextField
+          id="standard-multiline-flexible"
+          label="Description"
+          multiline
+          rowsMax="4"
+          value={props.workout.description}
+          onChange={onDescriptionChange}
+          onKeyDown={onUpdateDescription}
+        />
+      </CardContent>
+    </Card>
   );
 };
 

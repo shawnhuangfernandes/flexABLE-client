@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     maxWidth: "100%",
-    maxHeight: '200px'
+    maxHeight: "200px"
   },
   root: {
     display: "flex",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     margin: 4
   },
   inputHolder: {
-    width: '100%'
+    width: "100%"
   }
 }));
 
@@ -68,28 +68,33 @@ const NewExerciseSelector = props => {
   const onDescriptionChange = e => {
     e.persist();
     setDescription(e.target.value);
-    console.log(description);
   };
 
   // EVENT HANDLER: when form is submitted to create a new workout
   const onCreateWorkout = e => {
     e.preventDefault();
+    e.persist();
 
-    const workoutInfo = {
-      user_id: user.id,
-      exercise_id: exerciseId,
-      completed: false,
-      description: description,
-      workout_date: new Date(
-        props.currentDate.year,
-        props.currentDate.month - 1,
-        props.currentDate.day
-      )
-    };
+    console.log(e.target.value)
 
-    api.workouts.createNewWorkout(workoutInfo).then(workout => {
-      dispatch(getWeekWorkouts(addNewWorkout(workout)));
-    });
+    if ((e.type === "click" || (e.type === "keypress" && e.key === "Enter")) && e.target.value !== undefined) {
+      console.log("In here")
+      const workoutInfo = {
+        user_id: user.id,
+        exercise_id: exerciseId,
+        completed: false,
+        description: description,
+        workout_date: new Date(
+          props.currentDate.year,
+          props.currentDate.month - 1,
+          props.currentDate.day
+        )
+      };
+
+      api.workouts.createNewWorkout(workoutInfo).then(workout => {
+        dispatch(getWeekWorkouts(addNewWorkout(workout)));
+      });
+    }
   };
 
   // EVENT HANDLER: when a drop down option is selected
@@ -120,11 +125,11 @@ const NewExerciseSelector = props => {
         <Select
           autoWidth
           onChange={onSelectExercise}
-          defaultValue=""
+          defaultValue={-1}
           input={<Input />}
         >
-          <MenuItem value={0}>
-            <em>None</em>
+          <MenuItem value={-1}>
+            <em>Choose Exercise</em>
           </MenuItem>
           <ListSubheader>Arms</ListSubheader>
           {getMenuItems("Arms")}
@@ -165,14 +170,18 @@ const NewExerciseSelector = props => {
 
   return (
     <Paper component="form" className={classes.root}>
-      <Box className={classes.inputHolder} display="flex" flexDirection="column">
+      <Box
+        className={classes.inputHolder}
+        display="flex"
+        flexDirection="column"
+      >
         {getExerciseOptions()}
         <Box display="flex" flexDirection="row">
           <InputBase
             className={classes.input}
             placeholder="Workout Details"
-            inputProps={{ "aria-label": "search google maps" }}
             onChange={onDescriptionChange}
+            onKeyPress={onCreateWorkout}
           />
           <Divider className={classes.divider} orientation="vertical" />
           <IconButton

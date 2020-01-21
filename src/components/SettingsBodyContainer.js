@@ -1,5 +1,5 @@
 // React specific imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
 import { logout } from "../redux/actionList";
@@ -13,8 +13,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 
 // material UI styles
 const useStyles = makeStyles(theme => ({
@@ -38,35 +36,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SettingsBodyContainer = props => {
-  // material UI setting for ease of access (reference above)
-  const classes = useStyles();
+  const classes = useStyles(); // material UI setting for ease of access (reference above)
 
   const user = useSelector(state => state.authReducer.user);
+
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [username, setUsername] = useState(user.username);
 
-  // probably an async problem with using user
-  //firstName and lastName and username are all undefined here
-
   const onUsernameChange = e => {
     e.persist();
     setUsername(e.target.value);
-    console.log(username);
   };
 
   const onFirstNameChange = e => {
     e.persist();
     setFirstName(e.target.value);
-    console.log(firstName)
   };
 
   const onLastNameChange = e => {
     e.persist();
     setLastName(e.target.value);
-    console.log(lastName)
   };
 
   const onSubmitForm = e => {

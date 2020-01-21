@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
@@ -54,6 +54,8 @@ export default function DashboardBody(props) {
 
   const dispatch = useDispatch(); // create the dispatch object to set state
 
+  const user = useSelector(state => state.authReducer.user); // get user info from auth state
+
   // This method logs the user out
   const logoutUser = () => {
     localStorage.removeItem("token"); // removes the JWT token of the user from local storage
@@ -64,11 +66,11 @@ export default function DashboardBody(props) {
   const getDashboardContentComponent = props => {
     switch (props.selection) {
       case "planner":
-        return <PlannerBodyContainer/>;
+        return <PlannerBodyContainer />;
       case "learning-center":
-        return <LearningCenterBodyContainer/>;
+        return <LearningCenterBodyContainer />;
       case "settings":
-        return <SettingsBodyContainer />;
+        return <SettingsBodyContainer user={user}/>;
       default:
         return <PlannerBodyContainer />;
     }
@@ -79,11 +81,6 @@ export default function DashboardBody(props) {
     [<EventNoteIcon />, "Planner", "planner"],
     [<SettingsIcon />, "Settings", "settings"],
     [<FitnessCenterIcon />, "Learning Center", "learning-center"]
-  ];
-
-  // 3 item array containing all the icons, names, and routes of each sidebar option BELOW the divider
-  const lowerSideBarOptions = [
-    [<FeedbackIcon />, "Send Feedback", "feedback"]
   ];
 
   return (
@@ -119,14 +116,6 @@ export default function DashboardBody(props) {
         </List>
         <Divider />
         <List>
-          {lowerSideBarOptions.map(optionData => (
-            <Link href={optionData[2]} color="inherit" key={Math.random()}>
-              <ListItem button>
-                <ListItemIcon>{optionData[0]}</ListItemIcon>
-                <ListItemText primary={optionData[1]} />
-              </ListItem>
-            </Link>
-          ))}
           <Link href={"/"} color="inherit" key={Math.random()}>
             <ListItem button key={Math.random()} onClick={logoutUser}>
               <ListItemIcon>{<ExitToAppIcon />}</ListItemIcon>
