@@ -53,7 +53,7 @@ const NewExerciseSelector = props => {
   const exercises = useSelector(state => state.exerciseReducer.exercises); // redux state to grab exercises for drop down
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
 
-  const [exerciseId, setExerciseId] = useState(1); // local state for exercise id from drop down selection
+  const [exerciseId, setExerciseId] = useState(null); // local state for exercise id from drop down selection
   const [description, setDescription] = useState(""); // local state for description on text field
 
   const dispatch = useDispatch(); // dispatch for updating redux state
@@ -75,10 +75,7 @@ const NewExerciseSelector = props => {
     e.preventDefault();
     e.persist();
 
-    console.log(e.target.value)
-
-    if ((e.type === "click" || (e.type === "keypress" && e.key === "Enter")) && e.target.value !== undefined) {
-      console.log("In here")
+    if (exerciseId !== null) {
       const workoutInfo = {
         user_id: user.id,
         exercise_id: exerciseId,
@@ -125,10 +122,10 @@ const NewExerciseSelector = props => {
         <Select
           autoWidth
           onChange={onSelectExercise}
-          defaultValue={-1}
+          defaultValue={999}
           input={<Input />}
         >
-          <MenuItem value={-1}>
+          <MenuItem value={999}>
             <em>Choose Exercise</em>
           </MenuItem>
           <ListSubheader>Arms</ListSubheader>
@@ -181,7 +178,6 @@ const NewExerciseSelector = props => {
             className={classes.input}
             placeholder="Workout Details"
             onChange={onDescriptionChange}
-            onKeyPress={onCreateWorkout}
           />
           <Divider className={classes.divider} orientation="vertical" />
           <IconButton

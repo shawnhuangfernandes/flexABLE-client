@@ -16,7 +16,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import SettingsIcon from "@material-ui/icons/Settings";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
-import FeedbackIcon from "@material-ui/icons/Feedback";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PlannerBodyContainer from "./PlannerBodyContainer";
 import LearningCenterBodyContainer from "./LearningCenterBodyContainer";
