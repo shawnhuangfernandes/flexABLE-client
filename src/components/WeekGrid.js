@@ -6,7 +6,7 @@ import DayCard from "./DayCard";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
-// set up the styles used in the Dashboard Container
+// JSS Styling
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",

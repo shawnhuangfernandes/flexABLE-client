@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useSelector, useDispatch } from "react-redux";
-import { getWeekWorkouts } from "../redux/actionList";
+import { getWeekWorkouts, setExerciseList } from "../redux/actionList";
 import Calendar from "react-calendar";
 import WeekGrid from "./WeekGrid";
 
@@ -10,6 +10,7 @@ import WeekGrid from "./WeekGrid";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from '@material-ui/core/styles';
 
+// MUI JSS styling
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 // Planner Container taht holds Day Cards, and Calendar
 const PlannerBodyContainer = props => {
-  const classes = useStyles();
+  const classes = useStyles(); // JSS styling
 
   // calendar date formatter (for incoming JS Dates) goes here
   const dateJsFormatter = jsDate => {
@@ -62,9 +63,12 @@ const PlannerBodyContainer = props => {
       const workoutsForWeek = getWorkoutsForWeek(allWorkouts);
       dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
     });
-  }, [currentDate, user, dispatch]); // ---- IMPORTANT NOTE, the brackets here prevent useEffect from running multiple times
+    api.exercises
+      .getAllExercises()
+      .then(exercises => dispatch(setExerciseList(exercises)));
+  }, [user, dispatch]);
 
-  // event handler for calendar click
+  // EVENT HANDLER - for calendar click
   const handleCalendarClick = dateSelected => {
     setCurrentDate(dateJsFormatter(dateSelected)); // set the current date
   };

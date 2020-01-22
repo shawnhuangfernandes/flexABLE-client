@@ -8,6 +8,7 @@ import DayHeader from "./DayHeader";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
+// MUI JSS styling
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",

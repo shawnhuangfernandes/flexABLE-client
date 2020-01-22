@@ -1,6 +1,12 @@
+// React specific imports
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import PlannerBodyContainer from "./PlannerBodyContainer";
+import LearningCenterBodyContainer from "./LearningCenterBodyContainer";
+import SettingsBodyContainer from "./SettingsBodyContainer";
+
+// MUI imports
 import Link from "@material-ui/core/Link";
 import { logout } from "../redux/actionList";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,9 +23,7 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import SettingsIcon from "@material-ui/icons/Settings";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import PlannerBodyContainer from "./PlannerBodyContainer";
-import LearningCenterBodyContainer from "./LearningCenterBodyContainer";
-import SettingsBodyContainer from "./SettingsBodyContainer";
+
 
 const drawerWidth = 240; // hard code width of the side bar
 

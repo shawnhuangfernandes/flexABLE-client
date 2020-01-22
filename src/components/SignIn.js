@@ -47,17 +47,17 @@ const SignIn = props => {
   // create state of password
   const [password, setPassword] = useState("");
 
-  // event handler for when username field changes
+  // EVENT HANDLER - for when username field changes
   const handleUsernameChange = e => {
     setUsername(e.target.value);
   };
 
-  // event handler for when password changes
+  // EVENT HANDLER - for when password changes
   const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  // event handler for when form is submitted
+  // EVENT HANDLER - for when form is submitted
   const handleSubmit = e => {
     e.preventDefault(); // prevent refresh behavior on form submit
     api.auth

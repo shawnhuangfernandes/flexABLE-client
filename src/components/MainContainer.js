@@ -1,3 +1,4 @@
+// React specific imports
 import React, { useEffect } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -8,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import LandingContainer from "./LandingContainer";
 import DashboardContainer from "./DashboardContainer";
+
 const MainContainer = props => {
   // React hook to use Redux dispatch
   const dispatch = useDispatch();

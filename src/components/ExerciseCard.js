@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 
+// MUI JSS styling
 const useStyles = makeStyles(theme => ({
   card: {
     width: "350px",

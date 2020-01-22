@@ -11,29 +11,32 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Checkbox from "@material-ui/core/Checkbox";
 
+// JSS Styling
 const useStyles = makeStyles(theme => ({
   card: {
     width: "100%",
-    paddingRight: '4px',
-    marginBottom: '4px',
+    paddingRight: "4px",
+    marginBottom: "4px"
   },
   cardHeader: {
-    padding: '6px',
-    textAlign: 'center'
+    padding: "6px",
+    textAlign: "center"
   },
   button: {
-    padding: '0px'
+    padding: "0px"
   },
   title: {
-    color: 'red',
+    color: "red",
     fontSize: 14
   }
 }));
 
 // This is the workout item that displays a specific workout with a delete button, description, and complete button
 const WorkoutItem = props => {
+  console.log('rendering again');
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
   const classes = useStyles();
@@ -66,6 +69,7 @@ const WorkoutItem = props => {
 
   // EVENT HANDLER: when button for completion is clicked
   const onToggleCompletion = e => {
+    e.persist();
     // run api service to update the workout with the toggled completion status
     api.workouts
       .updateWorkout({
@@ -83,17 +87,19 @@ const WorkoutItem = props => {
     e.preventDefault();
     e.persist();
 
-    if (e.key = "Enter") {
+    console.log("Updating Description")
+
+    if (e.key === "Enter") {
       api.workouts
-      .updateWorkout({
-        ...props.workout,
-        description: description
-      })
-      .then(
-        updatedWorkout =>
-          dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
-      );
-    } 
+        .updateWorkout({
+          ...props.workout,
+          description: description
+        })
+        .then(
+          updatedWorkout =>
+            dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
+        );
+    }
   };
 
   // EVENT HANDLER: when workout item delete button is clicked
@@ -107,30 +113,40 @@ const WorkoutItem = props => {
   const onDescriptionChange = e => {
     e.persist();
     setDescription(e.target.value);
+    console.log(description);
   };
 
   return (
     <Card className={classes.card}>
       <CardHeader
-      classes={{
-        title: classes.title,
-      }}
-      className={classes.cardHeader}
+        classes={{
+          title: classes.title
+        }}
+        className={classes.cardHeader}
+        avatar={
+          <Checkbox
+            checked={props.workout.completed}
+            onChange={onToggleCompletion}
+            value="primary"
+            inputProps={{ "aria-label": "primary checkbox" }}
+          />
+        }
         action={
           <IconButton onClick={onDeleteWorkout}>
-          <DeleteForeverIcon className={classes.button} fontSize="large" />
+            <DeleteForeverIcon className={classes.button} fontSize="large" />
           </IconButton>
         }
         title={props.workout.exercise.name}
       />
       <CardContent>
-      <TextField
+        <TextField
           id="standard-multiline-flexible"
           label="Description"
           multiline
           rowsMax="4"
           value={props.workout.description}
-          onKeyPress={onDescriptionChange}
+          onChange={onDescriptionChange}
+          onKeyPress={onUpdateDescription}
         />
       </CardContent>
     </Card>

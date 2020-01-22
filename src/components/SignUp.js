@@ -44,39 +44,38 @@ const SignIn = props => {
   // material UI setting for ease of access (reference above)
   const classes = useStyles();
 
-  // create state of username
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");   // local state of username (controlled form)
 
   // create state of password
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(""); // local state of password (controlled form)
 
   // create state of first name
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState(""); // local state of first name (controlled form)
 
   // create state of last name
-  const [lastName, setLastName] = useState("");
+  const [lastName, setLastName] = useState(""); // local state of last name (controlled form)
 
-  // event handler for when username field changes
+  // EVENT HANDLER - for when username field changes
   const handleUsernameChange = e => {
     setUsername(e.target.value);
   };
 
-  // event handler for when password changes
+  // EVENT HANDLER - for when password changes
   const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  // event handler for when password changes
+  // EVENT HANDLER - for when password changes
   const handleFirstNameChange = e => {
     setFirstName(e.target.value);
   };
 
-  // event handler for when password changes
+  // EVENT HANDLER - for when password changes
   const handleLastNameChange = e => {
     setLastName(e.target.value);
   };
 
-  // event handler for when form is submitted
+  // EVENT HANDLER - for when form is submitted
   const handleSubmit = e => {
     e.preventDefault();
     api.auth

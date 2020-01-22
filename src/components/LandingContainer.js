@@ -9,7 +9,7 @@ import Fab from "@material-ui/core/Fab";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Box from "@material-ui/core/Box";
 
-// Set up the styles used in the Landing Container
+// MUI JSS styling
 const useStyles = makeStyles(theme => ({
   root: {
     minHeight: "100vh"
@@ -30,9 +30,10 @@ const useStyles = makeStyles(theme => ({
 const LandingContainer = () => {
   const classes = useStyles(); // rename the styles created above
 
-  const [playStatus, setPlayStatus] = useState(false);
+  const [playStatus, setPlayStatus] = useState(false); // local state for when the video is played
 
-  const playVideo = () => {
+  // EVENT HANDLER - when video is clicked
+  const onPlayVideo = () => {
     setPlayStatus(true);
   };
 
@@ -67,7 +68,7 @@ const LandingContainer = () => {
         </Box>
         <Fab
           className={classes.playButton}
-          onClick={playVideo}
+          onClick={onPlayVideo}
           variant="extended"
           color="secondary"
           className={classes.margin}

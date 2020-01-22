@@ -19,6 +19,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
+// JSS styling
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
@@ -47,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewExerciseSelector = props => {
-  const classes = useStyles();
+  const classes = useStyles(); // use JSS styles
 
   const user = useSelector(state => state.authReducer.user); // redux state to grab logged in user
   const exercises = useSelector(state => state.exerciseReducer.exercises); // redux state to grab exercises for drop down
@@ -58,11 +59,6 @@ const NewExerciseSelector = props => {
 
   const dispatch = useDispatch(); // dispatch for updating redux state
 
-  useEffect(() => {
-    api.exercises
-      .getAllExercises()
-      .then(exercises => dispatch(setExerciseList(exercises)));
-  }, [user, dispatch]);
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
