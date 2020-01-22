@@ -23,14 +23,15 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import SettingsIcon from "@material-ui/icons/Settings";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
+import Box from "@material-ui/core/Box"
 
 const drawerWidth = 240; // hard code width of the side bar
 
 const useStyles = makeStyles(theme => ({ // theming for the components rendered in the Dashboard Body
   root: { 
     display: "flex", // make the root container a flex box
-    maxHeight: "100%"
+    maxHeight: "100%",
+    justifyContent: 'center'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1 // make the application bar stick "in front" of the sidebar
@@ -41,12 +42,16 @@ const useStyles = makeStyles(theme => ({ // theming for the components rendered 
   },
   drawerPaper: {
     width: drawerWidth, // set the sidebar paper (the textured color)
-    paddingTop: '3%'
+    paddingTop: '3%',
+    height: '280px'
   },
   content: {
-    flexGrow: 1, // the content (the stuff to the right of the sidebar) will dynamically grow to an equal size of the other children
     padding: theme.spacing(4), // set MUI spacing of the content so it is spaced away from the sidebar and the header
     height: '100vh'
+    
+  },
+  boogie: {
+    display: 'flex'
   },
   toolbar: theme.mixins.toolbar // used for providing spacing
 }));
@@ -99,7 +104,7 @@ export default function DashboardBody(props) {
         </Toolbar>
       </AppBar>
 
-      {/* Render the Sidebar Component */}
+      <Box className={classes.boogie}>
       <Drawer 
         className={classes.drawer}
         variant="permanent"
@@ -128,10 +133,11 @@ export default function DashboardBody(props) {
         </List>
       </Drawer>
 
-      {/* Render the Body Content */}
+     
       <main className={classes.content}>
         {getDashboardContentComponent(props)}
       </main>
+    </Box>
     </div>
   );
 }

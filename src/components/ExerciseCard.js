@@ -13,8 +13,9 @@ import CardContent from "@material-ui/core/CardContent";
 // MUI JSS styling
 const useStyles = makeStyles(theme => ({
   card: {
-    width: "350px",
-    height: "250px"
+    width: "300px",
+    height: "300px",
+    margin: '6px'
   },
   expand: {
     transform: "rotate(0deg)",
@@ -45,6 +46,7 @@ const ExerciseCard = props => {
           <a
             href={`https://www.youtube.com/results?search_query=How+To+Do+${props.exercise.name}`}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {" "}
             <IconButton aria-label="add to favorites">

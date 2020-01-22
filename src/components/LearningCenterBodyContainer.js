@@ -15,7 +15,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props; // destructuring props
 
@@ -48,10 +47,11 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
     width: "80",
-    backgroundColor: theme.palette.background.paper,
     paddingTop: '40px'
+  },
+  boogieAppBar: {
+    display: 'flex',
   }
 }));
 
@@ -80,8 +80,9 @@ export default function LearningCenterBodyContainer() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="default" className={classes.boogieApp}>
         <Tabs
+        
           value={value}
           onChange={handleChange}
           indicatorColor="primary"

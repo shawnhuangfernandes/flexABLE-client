@@ -67,7 +67,6 @@ const LandingContainer = () => {
           />
         </Box>
         <Fab
-          className={classes.playButton}
           onClick={onPlayVideo}
           variant="extended"
           color="secondary"

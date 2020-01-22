@@ -1,8 +1,8 @@
 // React imports
-import React, { useState, useEffect } from "react";
+import React, { useState,} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
-import { getWeekWorkouts, setExerciseList } from "../redux/actionList";
+import { getWeekWorkouts} from "../redux/actionList";
 
 // MUI imports
 import { makeStyles } from "@material-ui/core/styles";

@@ -79,7 +79,7 @@ const SettingsBodyContainer = props => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container className={classes.root }component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -88,44 +88,29 @@ const SettingsBodyContainer = props => {
         <Typography component="h1" variant="h5">
           Edit Your Account
         </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmitForm}>
+        <form className={classes.form} onSubmit={onSubmitForm}>
           <TextField
-            variant="outlined"
-            margin="normal"
             required
+            margin="normal"
+            id="standard-required"
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
             value={username ? username : user.username}
-            autoFocus
             onChange={onUsernameChange}
           />
           <TextField
-            variant="outlined"
-            margin="normal"
             required
+            margin="normal"
+            id="standard-required"
             fullWidth
-            id="first_name"
-            label="First Name"
-            name="first_name"
-            autoComplete="first_name"
             value={firstName ? firstName : user.first_name}
-            autoFocus
             onChange={onFirstNameChange}
           />
           <TextField
-            variant="outlined"
-            margin="normal"
             required
+            margin="normal"
+            id="standard-required"
             fullWidth
-            id="last_name"
-            label="Last Name"
-            name="last_name"
             value={lastName ? lastName : user.last_name}
-            autoComplete="last_name"
-            autoFocus
             onChange={onLastNameChange}
           />
           <Button
@@ -133,6 +118,16 @@ const SettingsBodyContainer = props => {
             fullWidth
             variant="contained"
             color="primary"
+            className={classes.submit}
+          >
+            Submit Changes
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={onDeleteClick}
             className={classes.submit}
           >
             Submit Changes

@@ -66,7 +66,7 @@ const PlannerBodyContainer = props => {
     api.exercises
       .getAllExercises()
       .then(exercises => dispatch(setExerciseList(exercises)));
-  }, [user, dispatch]);
+  }, [user, dispatch, getWorkoutsForWeek]);
 
   // EVENT HANDLER - for calendar click
   const handleCalendarClick = dateSelected => {
