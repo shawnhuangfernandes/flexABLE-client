@@ -58,8 +58,12 @@ const PlannerBodyContainer = props => {
 
   // this method handles what happens when state changes (or when a re-render occurs)
   useEffect(() => {
+
+    console.log(user);
+
     // api service to get the current users workouts grouped by day
     api.workouts.getWorkouts(user).then(allWorkouts => {
+      console.log(allWorkouts);
       const workoutsForWeek = getWorkoutsForWeek(allWorkouts);
       dispatch(getWeekWorkouts(workoutsForWeek)); // dispatch to change the days of the week selected
     });
@@ -84,6 +88,7 @@ const PlannerBodyContainer = props => {
       const filteredWorkouts = workoutList.filter(workout => {
         const workoutDate = dateRbFormatter(workout.workout_date);
         return (
+          workout.user_id === user.id &&
           workoutDate.getDate() === jsCurrentDate.getDate() &&
           workoutDate.getMonth() === jsCurrentDate.getMonth() &&
           workoutDate.getFullYear() === jsCurrentDate.getFullYear()

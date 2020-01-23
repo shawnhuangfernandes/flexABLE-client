@@ -44,6 +44,19 @@ const getCurrentUser = () => {
   });
 };
 
+const updateCurrentUser = (userInfo) => {
+  return fetch(
+    `${API_ROOT}/users/${userInfo.id}`,
+    {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify(userInfo)
+    }
+  ).then(updatedUserInfo => {
+    return updatedUserInfo.json();
+  });
+}
+
 const createNewWorkout = workoutInfo => {
   return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts`, {
     method: "POST",
@@ -98,13 +111,14 @@ export const api = {
     signUp,
     login,
     getCurrentUser,
-    deleteUser
+    deleteUser,
+    updateCurrentUser
   },
   workouts: {
     getWorkouts,
     updateWorkout,
     createNewWorkout,
-    deleteWorkout
+    deleteWorkout,
   },
   exercises: {
     getAllExercises

@@ -1,9 +1,9 @@
 // React specific imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
 import { logout } from "../redux/actionList";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 // MUI imports
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,7 @@ import Container from "@material-ui/core/Container";
 // material UI styles
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: '50%',
+    marginTop: "50%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -38,9 +38,7 @@ const useStyles = makeStyles(theme => ({
 const SettingsBodyContainer = props => {
   const classes = useStyles(); // material UI setting for ease of access (reference above)
 
-  const user = useSelector(state => {
-    return state.authReducer.user;
-  }); // grab the user from redux store
+  const user = useSelector(state => state.authReducer.user); // grab the user from redux store
 
   const dispatch = useDispatch(); // used for dispatching actions to redux store
 
@@ -67,7 +65,22 @@ const SettingsBodyContainer = props => {
   };
 
   // EVENT HANDLER - form submission
-  const onSubmitForm = e => {};
+  const onSubmitForm = e => {
+    e.preventDefault();
+
+    const userInfo = {
+      id: user.id,
+      first_name: firstName,
+      last_name: lastName,
+      username: username
+    };
+
+    console.log(userInfo);
+
+    api.auth
+      .updateCurrentUser(userInfo)
+      .then(userInfo => console.log(userInfo));
+  };
 
   // EVENT HANDLER - delete button click
   const onDeleteClick = e => {
@@ -77,8 +90,14 @@ const SettingsBodyContainer = props => {
     });
   };
 
+  useEffect(() => {
+    setFirstName(user.first_name);
+    setLastName(user.last_name);
+    setUsername(user.username);
+  }, [user.first_name, user.last_name, user.username]);
+
   return (
-    <Container className={classes.root }component="main" maxWidth="xs">
+    <Container className={classes.root} component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -93,7 +112,7 @@ const SettingsBodyContainer = props => {
             margin="normal"
             id="standard-required"
             fullWidth
-            value={username ? username : user.username}
+            placeholder={username}
             onChange={onUsernameChange}
           />
           <TextField
@@ -101,7 +120,7 @@ const SettingsBodyContainer = props => {
             margin="normal"
             id="standard-required"
             fullWidth
-            value={firstName ? firstName : user.first_name}
+            placeholder={firstName}
             onChange={onFirstNameChange}
           />
           <TextField
@@ -109,7 +128,7 @@ const SettingsBodyContainer = props => {
             margin="normal"
             id="standard-required"
             fullWidth
-            value={lastName ? lastName : user.last_name}
+            placeholder={lastName}
             onChange={onLastNameChange}
           />
           <Button
@@ -122,16 +141,16 @@ const SettingsBodyContainer = props => {
             Submit Changes
           </Button>
           <Link to="/">
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onDeleteClick}
-            className={classes.submit}
-          >
-            Delete Account
-          </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onDeleteClick}
+              className={classes.submit}
+            >
+              Delete Account
+            </Button>
           </Link>
         </form>
       </div>

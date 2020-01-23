@@ -59,7 +59,7 @@ const LandingContainer = () => {
         >
           <ReactPlayer
             className={classes.video}
-            url="http://techslides.com/demos/sample-videos/small.mp4"
+            url="https://mod5-project.s3-us-west-2.amazonaws.com/VIDEO+VOPY+2.mp4"
             playing={playStatus}
             controls={false}
             height={680}
