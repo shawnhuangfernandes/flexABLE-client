@@ -48,9 +48,10 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     width: "80",
-    paddingTop: '40px'
+    paddingTop: '40px',
+    marginLeft: '200px'
   },
-  boogieAppBar: {
+  appBar: {
     display: 'flex',
   }
 }));
@@ -80,7 +81,7 @@ export default function LearningCenterBodyContainer() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.boogieApp}>
+      <AppBar position="static" color="default" className={classes.app}>
         <Tabs
         
           value={value}

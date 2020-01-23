@@ -25,8 +25,6 @@ import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Box from "@material-ui/core/Box"
 
-const drawerWidth = 240; // hard code width of the side bar
-
 const useStyles = makeStyles(theme => ({ // theming for the components rendered in the Dashboard Body
   root: { 
     display: "flex", // make the root container a flex box
@@ -37,20 +35,17 @@ const useStyles = makeStyles(theme => ({ // theming for the components rendered 
     zIndex: theme.zIndex.drawer + 1 // make the application bar stick "in front" of the sidebar
   },
   drawer: {
-    width: drawerWidth, // set the width of the side bar
     flexShrink: 0,// this side bar will not shrink AT ALL w/ respect to the other items
   },
   drawerPaper: {
-    width: drawerWidth, // set the sidebar paper (the textured color)
     paddingTop: '3%',
     height: '280px'
   },
   content: {
     padding: theme.spacing(4), // set MUI spacing of the content so it is spaced away from the sidebar and the header
-    height: '100vh'
-    
+    height: '100vh',
   },
-  boogie: {
+  box: {
     display: 'flex'
   },
   toolbar: theme.mixins.toolbar // used for providing spacing
@@ -104,7 +99,7 @@ export default function DashboardBody(props) {
         </Toolbar>
       </AppBar>
 
-      <Box className={classes.boogie}>
+      <Box className={classes.box}>
       <Drawer 
         className={classes.drawer}
         variant="permanent"

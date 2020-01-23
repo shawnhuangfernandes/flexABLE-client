@@ -7,6 +7,7 @@ import DayHeader from "./DayHeader";
 // MUI imports
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import purple from '@material-ui/core/colors/purple';
 
 // MUI JSS styling
 const useStyles = makeStyles(theme => ({
@@ -15,14 +16,15 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     padding: "1%",
     height: "100%",
-    width: "14%"
+    width: "14%",
+    backgroundColor: purple['300']
   },
   paper: {
     height: "100%",
     marginTop: '4px',
     overflow: 'scroll',
-    padding: '4%'
-
+    padding: '4%',
+    backgroundColor: purple["100"]
   }
 }));
 
@@ -41,7 +43,7 @@ const DayCard = props => {
       <DayHeader
         dayName={`${props.name} (${props.currentDate.month}/${props.currentDate.day})`}
       />
-      <NewExerciseSelector currentDate={props.currentDate} />
+      <NewExerciseSelector currentDate={props.currentDate} user={props.user}/>
       <Paper className={classes.paper}>{createWorkoutItems()}</Paper>
     </Paper>
   );

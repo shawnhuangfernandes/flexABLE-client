@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
 import { logout } from "../redux/actionList";
-
+import { Link } from 'react-router-dom'
 // MUI imports
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,7 @@ import Container from "@material-ui/core/Container";
 // material UI styles
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '50%',
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -75,7 +75,6 @@ const SettingsBodyContainer = props => {
     api.auth.deleteUser(user).then(message => {
       dispatch(logout());
     });
-    // then logout
   };
 
   return (
@@ -122,6 +121,7 @@ const SettingsBodyContainer = props => {
           >
             Submit Changes
           </Button>
+          <Link to="/">
           <Button
             type="submit"
             fullWidth
@@ -130,8 +130,9 @@ const SettingsBodyContainer = props => {
             onClick={onDeleteClick}
             className={classes.submit}
           >
-            Submit Changes
+            Delete Account
           </Button>
+          </Link>
         </form>
       </div>
     </Container>

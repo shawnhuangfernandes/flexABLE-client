@@ -8,24 +8,24 @@ import WeekGrid from "./WeekGrid";
 
 // MUI imports
 import Box from "@material-ui/core/Box";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 // MUI JSS styling
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    height: '100%',
-    paddingBottom: '10px',
-    paddingTop: '100px'
+    height: "100%",
+    paddingBottom: "10px",
+    paddingTop: "100px"
   },
   calendar: {
     flexGrow: 1,
-    height: 'auto'
+    height: "auto"
   },
   weekGrid: {
     flexGrow: 1,
-    minHeight: '80%',
-    width: '100%'
+    minHeight: "80%",
+    width: "100%"
   }
 }));
 
@@ -66,7 +66,7 @@ const PlannerBodyContainer = props => {
     api.exercises
       .getAllExercises()
       .then(exercises => dispatch(setExerciseList(exercises)));
-  }, [user, dispatch, getWorkoutsForWeek]);
+  }, [user, dispatch, currentDate]);
 
   // EVENT HANDLER - for calendar click
   const handleCalendarClick = dateSelected => {
@@ -114,6 +114,7 @@ const PlannerBodyContainer = props => {
       currentDate.month - 1,
       currentDate.day
     );
+
     const dayOfTheWeek = today.getDay();
 
     today.setDate(today.getDate() - dayOfTheWeek);
@@ -121,8 +122,13 @@ const PlannerBodyContainer = props => {
   };
 
   return (
-    <Box className={classes.root} display="flex" justifyContent="center" flexDirection="column" >
-      <Box className={classes.calendar}p={1} alignSelf="center">
+    <Box
+      className={classes.root}
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+    >
+      <Box className={classes.calendar} p={1} alignSelf="center">
         <Calendar
           onChange={handleCalendarClick}
           value={
@@ -137,6 +143,7 @@ const PlannerBodyContainer = props => {
           currentDate={currentDate}
           weekWorkouts={selectedWeekWorkouts}
           dateJsFormatter={dateJsFormatter}
+          user={user}
         />
       </Box>
     </Box>

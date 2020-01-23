@@ -19,7 +19,7 @@ import Link from "@material-ui/core/Link";
   // material UI styles
   const useStyles = makeStyles(theme => ({
     paper: {
-      marginTop: theme.spacing(8),
+      marginTop: '50%',
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
@@ -55,6 +55,10 @@ const SignIn = props => {
   // create state of last name
   const [lastName, setLastName] = useState(""); // local state of last name (controlled form)
 
+  // create a ref for the username and/or password
+  const usernameInput = React.createRef();
+  const passwordInput = React.createRef();
+
   // EVENT HANDLER - for when username field changes
   const handleUsernameChange = e => {
     setUsername(e.target.value);
@@ -89,10 +93,14 @@ const SignIn = props => {
       })
       .then(userData => {
         if (!userData.error) {
+          localStorage.setItem("token", userData.jwt); // assign the local storage token of the logged in user as the user's JWT encrypted token
           dispatch(signIn(userData));
           props.history.push("/dashboard/planner");
         } else {
           console.log("Got an error here");
+          // where I want to add the error props on both username input and password input
+          console.log(usernameInput);
+          console.log(passwordInput);
         }
       });
   };
@@ -109,6 +117,7 @@ const SignIn = props => {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
+            ref={usernameInput}
             variant="outlined"
             margin="normal"
             required
@@ -121,6 +130,7 @@ const SignIn = props => {
             onChange={handleUsernameChange}
           />
           <TextField
+            ref={passwordInput}
             variant="outlined"
             margin="normal"
             required

@@ -43,6 +43,7 @@ const WeekGrid = props => {
             currentDate={dateCopy}
             name={weekNames[index]}
             workouts={props.weekWorkouts[index]}
+            user={props.user}
           />
         );
       });

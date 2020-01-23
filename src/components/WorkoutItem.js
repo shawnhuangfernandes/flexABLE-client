@@ -13,13 +13,15 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Checkbox from "@material-ui/core/Checkbox";
+import grey from '@material-ui/core/colors/grey';
 
 // JSS Styling
 const useStyles = makeStyles(theme => ({
   card: {
     width: "100%",
     paddingRight: "4px",
-    marginBottom: "4px"
+    marginBottom: "4px",
+    backgroundColor: grey['300']
   },
   cardHeader: {
     padding: "6px",
@@ -36,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 // This is the workout item that displays a specific workout with a delete button, description, and complete button
 const WorkoutItem = props => {
-  console.log('rendering again');
   const dispatch = useDispatch(); // allow this component to change redux state
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
   const classes = useStyles();
@@ -83,23 +84,19 @@ const WorkoutItem = props => {
   };
 
   // EVENT HANDLER: when description is officially updated
-  const onUpdateDescription = e => {
-    e.preventDefault();
-    e.persist();
+  const onUpdateDescription = () => {
+    // e.preventDefault();
+    // e.persist();
 
-    console.log("Updating Description")
-
-    if (e.key === "Enter") {
-      api.workouts
-        .updateWorkout({
-          ...props.workout,
-          description: description
-        })
-        .then(
-          updatedWorkout =>
-            dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
-        );
-    }
+    api.workouts
+      .updateWorkout({
+        ...props.workout,
+        description: description
+      })
+      .then(
+        updatedWorkout =>
+          dispatch(getWeekWorkouts(updateWorkoutList(updatedWorkout))) // dispatch the UPDATED WORKOUT LIST
+      );
   };
 
   // EVENT HANDLER: when workout item delete button is clicked
@@ -112,8 +109,11 @@ const WorkoutItem = props => {
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
     e.persist();
-    setDescription(e.target.value);
-    console.log(description);
+    if (e.nativeEvent.inputType !== "insertLineBreak") {
+      setDescription(e.target.value);
+    } else {
+      onUpdateDescription();
+    }
   };
 
   return (
@@ -132,7 +132,7 @@ const WorkoutItem = props => {
           />
         }
         action={
-          <IconButton onClick={onDeleteWorkout}>
+          <IconButton className="boogie" onClick={onDeleteWorkout}>
             <DeleteForeverIcon className={classes.button} fontSize="large" />
           </IconButton>
         }
@@ -144,9 +144,9 @@ const WorkoutItem = props => {
           label="Description"
           multiline
           rowsMax="4"
-          value={props.workout.description}
+          value={description}
           onChange={onDescriptionChange}
-          onKeyPress={onUpdateDescription}
+          // onKeyPress={onUpdateDescription}
         />
       </CardContent>
     </Card>

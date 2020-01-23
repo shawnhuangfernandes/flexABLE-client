@@ -1,8 +1,8 @@
 // React imports
-import React, { useState,} from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../services/api";
-import { getWeekWorkouts} from "../redux/actionList";
+import { getWeekWorkouts } from "../redux/actionList";
 
 // MUI imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,6 +18,8 @@ import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import purple from '@material-ui/core/colors/purple';
+
 
 // JSS styling
 const useStyles = makeStyles(theme => ({
@@ -29,7 +31,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
+    backgroundColor: purple["200"]
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -50,15 +53,12 @@ const useStyles = makeStyles(theme => ({
 const NewExerciseSelector = props => {
   const classes = useStyles(); // use JSS styles
 
-  const user = useSelector(state => state.authReducer.user); // redux state to grab logged in user
   const exercises = useSelector(state => state.exerciseReducer.exercises); // redux state to grab exercises for drop down
   const week = useSelector(state => state.workoutReducer.selectedWeekWorkouts); // get redux state for the selected week
-
   const [exerciseId, setExerciseId] = useState(null); // local state for exercise id from drop down selection
   const [description, setDescription] = useState(""); // local state for description on text field
 
   const dispatch = useDispatch(); // dispatch for updating redux state
-
 
   // EVENT HANDLER: when description text field is typed in
   const onDescriptionChange = e => {
@@ -73,7 +73,7 @@ const NewExerciseSelector = props => {
 
     if (exerciseId !== null) {
       const workoutInfo = {
-        user_id: user.id,
+        user_id: props.user.id,
         exercise_id: exerciseId,
         completed: false,
         description: description,
