@@ -1,4 +1,4 @@
-const API_ROOT = `http://localhost:3000/api/v1`; // root url of backend (rails)
+const API_ROOT = `https://mod5-project-server.herokuapp.com/api/v1`; // root url of backend (rails)
 const token = localStorage.getItem("token"); // current value of jwt token in local storage
 
 // headers for all requests never change, so store them in a variable for use for all fetches
