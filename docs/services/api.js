@@ -1,4 +1,4 @@
-const API_ROOT = `https://mod5-project-server.herokuapp.com/api/v1`; // root url of backend (rails)
+const API_ROOT = `http://localhost:3000/api/v1`; // root url of backend (rails)
 const token = localStorage.getItem("token"); // current value of jwt token in local storage
 
 // headers for all requests never change, so store them in a variable for use for all fetches
@@ -44,18 +44,15 @@ const getCurrentUser = () => {
   });
 };
 
-const updateCurrentUser = (userInfo) => {
-  return fetch(
-    `${API_ROOT}/users/${userInfo.id}`,
-    {
-      method: "PATCH",
-      headers,
-      body: JSON.stringify(userInfo)
-    }
-  ).then(updatedUserInfo => {
+const updateCurrentUser = userInfo => {
+  return fetch(`${API_ROOT}/users/${userInfo.id}`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(userInfo)
+  }).then(updatedUserInfo => {
     return updatedUserInfo.json();
   });
-}
+};
 
 const createNewWorkout = workoutInfo => {
   return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts`, {
@@ -118,7 +115,7 @@ export const api = {
     getWorkouts,
     updateWorkout,
     createNewWorkout,
-    deleteWorkout,
+    deleteWorkout
   },
   exercises: {
     getAllExercises
