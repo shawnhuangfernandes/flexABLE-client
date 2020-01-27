@@ -36,6 +36,7 @@ const deleteUser = user => {
   });
 };
 
+// METHOD: get the current user from the backend
 const getCurrentUser = () => {
   return fetch(`${API_ROOT}/user_is_authed`, {
     headers
@@ -44,6 +45,7 @@ const getCurrentUser = () => {
   });
 };
 
+// METHOD: update the current user information
 const updateCurrentUser = userInfo => {
   return fetch(`${API_ROOT}/users/${userInfo.id}`, {
     method: "PATCH",
@@ -54,6 +56,7 @@ const updateCurrentUser = userInfo => {
   });
 };
 
+// METHOD: create a new workout 
 const createNewWorkout = workoutInfo => {
   return fetch(`${API_ROOT}/users/${workoutInfo.user_id}/workouts`, {
     method: "POST",
@@ -64,6 +67,7 @@ const createNewWorkout = workoutInfo => {
   });
 };
 
+// METHOD: delete a workout
 const deleteWorkout = workout => {
   return fetch(`${API_ROOT}/users/${workout.user_id}/workouts/${workout.id}`, {
     method: "DELETE",
@@ -73,6 +77,7 @@ const deleteWorkout = workout => {
   });
 };
 
+// METHOD: Update a workout
 const updateWorkout = workoutInfo => {
   return fetch(
     `${API_ROOT}/users/${workoutInfo.user_id}/workouts/${workoutInfo.id}`,
@@ -86,6 +91,7 @@ const updateWorkout = workoutInfo => {
   });
 };
 
+// METHOD: get all workouts
 const getWorkouts = user => {
   return fetch(`${API_ROOT}/users/${user.id}/workouts`, {
     headers
@@ -94,6 +100,7 @@ const getWorkouts = user => {
   });
 };
 
+// METHOD: get all exercises
 const getAllExercises = () => {
   return fetch(`${API_ROOT}/exercises`, {
     headers

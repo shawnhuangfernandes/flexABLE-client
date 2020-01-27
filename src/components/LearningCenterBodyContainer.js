@@ -14,7 +14,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-
+// This method renders the tabs
 function TabPanel(props) {
   const { children, value, index, ...other } = props; // destructuring props
 
@@ -38,6 +38,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired
 };
 
+// Material UI tab styling object
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
@@ -45,6 +46,7 @@ function a11yProps(index) {
   };
 }
 
+// Style object for Tabs
 const useStyles = makeStyles(theme => ({
   root: {
     width: "80",
@@ -69,12 +71,14 @@ export default function LearningCenterBodyContainer() {
     .then(exercises => dispatch(setExerciseList(exercises)));
   }, [dispatch])
 
+  // gets exercises by category ( a string )
   const getExercisesByCategory = category => {
     return exercises.filter(exercise => {
       return exercise.category === category;
     });
   };
 
+  // EVENT HANDLER - on changing tabs
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
